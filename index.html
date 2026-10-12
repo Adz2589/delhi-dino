@@ -48,7 +48,7 @@
   <h3>Why does Neha Bora get a cape?</h3>
   <p>Her runner has the only special power in the game: <b>SANGATHAN</b> (organising). Where every other runner is "detained" the moment they hit a barricade, Neha gets three chances to rally — supporters appear, the group regroups in an orderly line, and the run continues from the barricade. The cape is the joke made visible: the superpower here is getting people organised, not flying.</p>
   <h3>What do the journalists do?</h3>
-  <p>They run with a camera. There is no separate press mechanic; they are there because any story about barricades in Delhi has journalists in it, and because the player wanted them on the roster. Peeing Human is drawn as an anonymous hoodie on purpose.</p>
+  <p>They run with a camera and a <b>PRESS PASS</b>: barricades don't stop them, because reporting is their job. What does stop them is a Delhi Police constable who runs in every so often with a STOP hand. Jump over him and the "● REC" light stays on; get caught and he seizes a camera with a line like "Permission hai?". Three cameras, then the run ends with REPORTING STOPPED. That is the joke, and the point. Peeing Human is drawn as an anonymous hoodie on purpose.</p>
   <h3>Who are the two people running away?</h3>
   <p>Pixel caricatures of Narendra Modi and Amit Shah, in the tradition of newspaper cartoons. They are never hurt: when you reach 1000 points they topple over and your runner says "GOTCHA." That's the whole catch.</p>
   <h3>How long is a run?</h3>
@@ -148,12 +148,13 @@ const CHARS = [
   { id: 'saurav', name: 'Saurav Das', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#222', B: '#444', beard: '#333' } },
   { id: 'ashutosh', name: 'Ashutosh Ranka', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#2a9d8f', B: '#2b2b2b', glasses: true } },
   { id: 'ratna', name: 'Ratna Singh', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#8e44ad', B: '#2b2b2b', longHair: true } },
-  { id: 'kk', name: 'KK', group: 'Journalists', cfg: { H: '#888', T: '#7a7a7a', B: '#2b2b2b' }, camera: true },
-  { id: 'samdish', name: 'Samdish Bhatia', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#111', B: '#333', beard: '#222' }, mic: true },
-  { id: 'peek', name: 'Peek TV', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#e74c3c', B: '#2b2b2b' }, mic: true },
-  { id: 'rana', name: 'Rana Ayyub', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#7b1e3a', B: '#2b2b2b', longHair: true }, camera: true },
-  { id: 'peeing', name: 'Peeing Human', group: 'Journalists', cfg: { H: '#f2c230', T: '#f2c230', B: '#2b2b2b', hoodie: true, glasses: true }, mic: true },
+  { id: 'kk', name: 'KK', group: 'Journalists', cfg: { H: '#888', T: '#7a7a7a', B: '#2b2b2b' }, camera: true, journo: true },
+  { id: 'samdish', name: 'Samdish Bhatia', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#111', B: '#333', beard: '#222' }, mic: true, journo: true },
+  { id: 'peek', name: 'Peek TV', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#e74c3c', B: '#2b2b2b' }, mic: true, journo: true },
+  { id: 'rana', name: 'Rana Ayyub', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#7b1e3a', B: '#2b2b2b', longHair: true }, camera: true, journo: true },
+  { id: 'peeing', name: 'Peeing Human', group: 'Journalists', cfg: { H: '#f2c230', T: '#f2c230', B: '#2b2b2b', hoodie: true, glasses: true }, mic: true, journo: true },
 ];
+for (const c of CHARS) if (c.journo) { c.power = 'PRESS PASS'; c.tag = 'walks through barricades; police seize cameras'; }
 const SPR = { dino: frames(DINO_BODY, DINO_LEGS), modi: frames(MODI_BODY, MODI_LEGS), shah: frames(SHAH_BODY, SHAH_LEGS), cloud: sprite(CLOUD), cop: sprite(COP),
   supporter1: person({ H: '#222', T: '#c0392b', B: '#3b5998' }), supporter2: person({ H: '#3a2a1c', T: '#2a9d8f', B: '#444' }) };
 for (const c of CHARS) if (c.cfg) SPR[c.id] = person(c.cfg);
@@ -168,7 +169,8 @@ function reset() {
   G.state = 'title';          // title | playing | rally | over | won
   G.t = 0; G.endT = 0; G.speed = 6; G.score = 0;
   G.dino = { x: 50, y: GROUND - playerH(), vy: 0, ground: true, inv: 0 };
-  G.charges = G.char.power ? 3 : 0;
+  G.charges = G.char.power ? 3 : 0;   // Neha: rallies left · journalists: cameras left
+  G.cops = []; G.nextCop = 260;
   G.obs = []; G.clouds = [{ x: 420, y: 30 }, { x: 150, y: 50 }]; G.bits = []; G.bgX = 480;
   G.bg = [{ type: 'cops', x: 230, n: 3 }, { type: 'bus', x: 560 }];
   G.fug = [{ who: 'shah', dx: 0, y: 0, vy: 0, ground: true, angle: 0 }, { who: 'modi', dx: 50, y: 0, vy: 0, ground: true, angle: 0 }];
@@ -220,8 +222,23 @@ function step() {
   const last = G.obs[G.obs.length - 1]; const minGap = 230 + G.speed * 12;
   if (!last || last.x + last.w < W - minGap - Math.random() * 220) { if (G.t > 40) spawnObstacle(); }
   for (const f of G.fug) { const fx = fugX(f); for (const o of G.obs) if (f.ground && o.x > fx + 10 && o.x < fx + 10 + G.speed * 4) { f.vy = -6.5; f.ground = false; } }
+  // journalists: Delhi Police constables run in to stop the reporting
+  if (G.char.journo) {
+    if (--G.nextCop <= 0 && G.t > 120) { G.cops.push({ x: W + 30, caught: false, t: 0 }); G.nextCop = 380 + Math.random() * 320; }
+    for (const c of G.cops) {
+      c.t++; c.x -= c.caught ? G.speed : G.speed + 2.2;
+      const hit = !c.caught && d.inv <= 0 && d.x + 8 < c.x + 20 && d.x + 30 > c.x + 4 && d.y + ph > GROUND - 28;
+      if (hit) {
+        c.caught = true; G.charges--; d.inv = 110; G.bubble = { f: null, cx: c.x + 12, cy: GROUND - 32, text: ['Permission hai?', 'Camera do. Baad mein milega.', 'Yahan shooting allowed nahi.'][Math.floor(Math.random() * 3)], t: 90 };
+        G.pops.push({ x: d.x, y: d.y - 14, t: 0, txt: 'CAMERA SEIZED' });
+        if (G.charges <= 0) { G.state = 'over'; G.endT = G.t; saveHi(); return; }
+      }
+    }
+    G.cops = G.cops.filter(c => c.x > -40);
+  }
   for (const o of G.obs) {
-    if (!o.passed && o.x + o.w < d.x) { o.passed = true; G.score += 8; G.pops.push({ x: d.x + 40, y: d.y - 6, t: 0, txt: '+8' }); }
+    if (!o.passed && o.x + o.w < d.x) { o.passed = true; G.score += 8; G.pops.push({ x: d.x + 40, y: d.y - 6, t: 0, txt: G.char.journo ? 'PRESS ✓ +8' : '+8' }); }
+    if (G.char.journo) continue; // press pass: barricades do not stop the press
     const hit = d.x + 8 < o.x + o.w - 2 && d.x + 30 > o.x + 2 && d.y + ph > GROUND - o.h + 2 && d.y + 6 < GROUND;
     if (hit && d.inv <= 0) {
       if (G.charges > 0) { G.charges--; G.state = 'rally'; G.rally = { t: 0, x: o.x }; G.obs = G.obs.filter(q => q !== o); G.bubble = null; return; }
@@ -293,13 +310,19 @@ function render() {
   ctx.globalAlpha = 0.8; for (const it of G.bg) it.type === 'bus' ? drawBus(Math.round(it.x)) : drawCops(it.x, it.n); ctx.globalAlpha = 1;
   ctx.fillStyle = '#535353'; ctx.fillRect(0, GROUND, W, 1); for (const b of G.bits) ctx.fillRect(Math.round(b.x), Math.round(b.y), b.w, 1);
   for (const o of G.obs) drawBarricade(o);
+  for (const c of G.cops) {
+    const x = Math.round(c.x), bob = c.caught ? 0 : Math.abs(Math.sin(c.t / 4)) * 2;
+    ctx.drawImage(SPR.cop, x, GROUND - 30 - bob);
+    if (c.caught) { ctx.fillStyle = '#222'; ctx.fillRect(x - 6, GROUND - 22, 10, 7); ctx.fillStyle = '#9ad'; ctx.fillRect(x - 3, GROUND - 20, 4, 4); }
+    else { ctx.fillStyle = '#fff'; ctx.fillRect(x - 10, GROUND - 38, 12, 12); ctx.strokeStyle = '#c0392b'; ctx.lineWidth = 1; ctx.strokeRect(x - 9.5, GROUND - 37.5, 11, 11); text('STOP', x - 4, GROUND - 30, 4.5, 'center', '#c0392b', true); if (c.x > W - 60 && Math.floor(G.t / 6) % 2) text('⚠ POLICE', W - 8, GROUND - 48, 7, 'right', '#c0392b', true); }
+  }
   const runFrame = (Math.floor(G.t / 6) % 2 ? 'run1' : 'run2'), playing = G.state === 'playing';
   for (const f of G.fug) {
     const spr = SPR[f.who]; const img = playing ? (f.ground ? spr[runFrame] : spr.stand) : spr.stand;
     const x = Math.round(fugX(f)), y = GROUND - img.height + Math.round(f.y);
     if (f.angle > 0) { ctx.save(); ctx.translate(x, GROUND); ctx.rotate(-f.angle); ctx.drawImage(img, 0, -img.height); ctx.restore(); } else ctx.drawImage(img, x, y);
   }
-  if (G.bubble) { const f = G.bubble.f; bubble(G.bubble.text, Math.round(fugX(f)) + 20, GROUND - 58 + Math.round(f.y)); }
+  if (G.bubble) { const f = G.bubble.f; if (f) bubble(G.bubble.text, Math.round(fugX(f)) + 20, GROUND - 58 + Math.round(f.y)); else { const c = G.cops.find(c => c.caught); if (c) bubble(G.bubble.text, Math.round(c.x) + 12, GROUND - 32); } }
   // rally supporters (Neha's SANGATHAN)
   if (G.state === 'rally' || (G.rally && G.rally.t < 999)) {}
   if (G.state === 'rally') {
@@ -312,18 +335,19 @@ function render() {
     if (c.id === 'dino') ctx.drawImage(playing && d.ground ? SPR.dino[runFrame] : SPR.dino.stand, d.x, Math.round(d.y));
     else drawRunner(c, d.x, Math.round(d.y), playing && d.ground ? runFrame : 'stand', G.t, G.state !== 'playing' && G.state !== 'rally');
   }
+  if (c.journo && G.charges > 0 && playing && Math.floor(G.t / 20) % 2) text('● REC', d.x + 16, d.y - 4, 6, 'center', '#c0392b', true);
   if (G.state === 'won') bubble('GOTCHA.', d.x + 30, d.y - 2);
   if (G.state === 'over' && c.id === 'dino') { ctx.fillStyle = '#f7f7f7'; ctx.fillRect(d.x + 18, d.y + 2, 4, 4); ctx.fillStyle = '#535353'; ctx.fillRect(d.x + 19, d.y + 3, 2, 2); }
   for (const p of G.pops) if (p.t % 6 < 4) text(p.txt, p.x, p.y - p.t * 0.5, 8, 'left', '#535353', true);
   // HUD
   text('HI ' + pad(G.hi) + '  ' + pad(G.score), W - 10, 18, 11, 'right');
   text('GAP ' + Math.round(gap()) + 'm', 10, 18, 11, 'left');
-  if (c.power) { text('SANGATHAN', 10, 30, 7, 'left', '#c0392b', true); for (let i = 0; i < 3; i++) { ctx.fillStyle = i < G.charges ? '#c0392b' : '#ddd'; ctx.fillRect(58 + i * 9, 24, 6, 7); } }
+  if (c.power) { const lbl = c.journo ? 'CAMERAS' : 'SANGATHAN'; text(lbl, 10, 30, 7, 'left', '#c0392b', true); const ox = 14 + lbl.length * 4.3; for (let i = 0; i < 3; i++) { ctx.fillStyle = i < G.charges ? '#c0392b' : '#ddd'; ctx.fillRect(ox + i * 9, 24, 6, 7); } }
   text('created by adz_25', W - 6, H - 4, 8, 'right', '#9a9a9a');
   // overlays
-  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text('pick another runner below', W / 2, 80, 7, 'center', '#999'); }
+  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text(c.journo ? 'barricades can\'t stop the press — but jump the constables, or they take your camera' : 'pick another runner below', W / 2, 80, 7, 'center', '#999'); }
   else if (G.state === 'rally') { text('S A N G A T H A N !', W / 2, 52, 14, 'center', '#c0392b', true); text('Regrouping in an orderly line. Continuing from the barricade. ' + G.charges + ' left.', W / 2, 68, 8, 'center'); }
-  else if (G.state === 'over') { text('D E T A I N E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police got you first at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); }
+  else if (G.state === 'over') { if (c.journo) { text('R E P O R T I N G   S T O P P E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police seized the last camera at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); } else { text('D E T A I N E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police got you first at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); } }
   else if (G.state === 'won') { text('C A U G H T !', W / 2, 52, 14, 'center', '#535353', true); text('1000 points · ' + c.name + ' closed the gap · SPACE to run it back', W / 2, 68, 9, 'center'); }
 }
 
@@ -369,7 +393,7 @@ window.__capture = function (opts) {
 };
 window.__autoplay = function (charId, max = 20000) {
   paused = true; G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); let n = 0;
-  while (n++ < max && G.state !== 'won' && G.state !== 'over') { if (G.state === 'playing') { const o = G.obs.find(o => o.x + o.w > G.dino.x); if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8) jump(); } step(); }
+  while (n++ < max && G.state !== 'won' && G.state !== 'over') { if (G.state === 'playing') { const o = G.obs.find(o => o.x + o.w > G.dino.x); if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8 && !G.char.journo) jump(); const c = G.cops.find(c => !c.caught && c.x > G.dino.x); if (c && G.dino.ground && c.x - G.dino.x < 40 + G.speed * 6) jump(); } step(); }
   const r = { charId, state: G.state, score: Math.floor(G.score), steps: n, charges: G.charges }; paused = false; reset(); return r;
 };
 if (new URLSearchParams(location.search).has('capture')) {
