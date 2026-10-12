@@ -3,30 +3,141 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Delhi Dino</title>
+<title>Delhi Dino – Free Online Dino Game | T-Rex Runner Spoof</title>
+<meta name="description" content="Play Delhi Dino free online: a satirical spin on the Chrome dino game. Jump Delhi Police barricades, pick a runner, choose Easy, Medium or Hard, reach 1000.">
+<link rel="canonical" href="https://delhindino.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#f7f7f7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Delhi Dino">
+<meta property="og:title" content="Delhi Dino – Free Online Dino Game">
+<meta property="og:description" content="Jump Delhi Police barricades, pick your runner, choose Easy, Medium or Hard, and race to 1000. Free, in your browser.">
+<meta property="og:url" content="https://delhindino.com/">
+<meta property="og:image" content="https://delhindino.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pixel-art dino game: a runner jumps a yellow Delhi Police barricade">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Delhi Dino – Free Online Dino Game">
+<meta name="twitter:description" content="Jump Delhi Police barricades, pick your runner, choose Easy, Medium or Hard, and race to 1000.">
+<meta name="twitter:image" content="https://delhindino.com/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://delhindino.com/#website",
+      "url": "https://delhindino.com/",
+      "name": "Delhi Dino",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "VideoGame",
+      "@id": "https://delhindino.com/#game",
+      "name": "Delhi Dino",
+      "url": "https://delhindino.com/",
+      "description": "A free online dino game in the style of the Chrome T-Rex runner. Jump Delhi Police barricades, pick a runner, choose Easy, Medium or Hard, and reach 1000 points.",
+      "image": "https://delhindino.com/og-image.png",
+      "genre": ["Endless runner", "Arcade", "Political satire"],
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game",
+      "operatingSystem": "Any",
+      "playMode": "SinglePlayer",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Person", "name": "adz_25" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is Delhi Dino?", "acceptedAnswer": { "@type": "Answer", "text": "Delhi Dino is a free online dino game in the style of the T-Rex runner Chrome shows when your internet drops. Instead of cacti there are Delhi Police barricades, and instead of running from nothing, your runner chases two politicians who keep sprinting away. It is political satire in pixel form, made by adz_25." } },
+        { "@type": "Question", "name": "How do I play?", "acceptedAnswer": { "@type": "Answer", "text": "Press Space or the Up arrow, or tap the screen, to jump. Clear the yellow barricades, close the gap, and reach 1000 points to catch up. It runs in any modern browser on desktop or phone, with nothing to install." } },
+        { "@type": "Question", "name": "What are Easy, Medium and Hard?", "acceptedAnswer": { "@type": "Answer", "text": "Easy starts slower, tops out at a lower speed and spaces barricades further apart. Medium is the classic run. Hard starts fast, gets faster, uses more of the tall ROAD CLOSED barricades and, for journalists, sends police in more often. Each difficulty keeps its own best score." } },
+        { "@type": "Question", "name": "How does the leaderboard work?", "acceptedAnswer": { "@type": "Answer", "text": "Sign in with your email to post your runs. Each player's best run per difficulty appears on the global board with their display name and country flag. Runs are ranked by points, and ties at 1000 go to whoever got there faster." } },
+        { "@type": "Question", "name": "Is any of this real?", "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing in the game depicts a real event. The barricades, the chase, the speech bubbles, the GOTCHA ending and the super-cape are all jokes. The game does not claim that anyone named here did, said or had anything done to them. It is commentary, not reporting." } },
+        { "@type": "Question", "name": "What do you store about me?", "acceptedAnswer": { "@type": "Answer", "text": "Nothing, unless you sign in or send feedback. Signing in stores your email (for login), a display name, your country and your scores. Feedback stores what you write and is emailed to the site's creator. Your best scores on this device are kept in your browser's local storage." } },
+        { "@type": "Question", "name": "Is Delhi Dino affiliated with Google?", "acceptedAnswer": { "@type": "Answer", "text": "No. Delhi Dino is an independent parody of the Chrome offline game. The sprites and code are original." } }
+      ]
+    }
+  ]
+}
+</script>
 <style>
+  [hidden] { display: none !important; }
   html, body { margin: 0; background: #f7f7f7; color: #535353; font-family: "Courier New", Courier, monospace; }
-  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 18px 0 40px; box-sizing: border-box; }
+  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 14px 0 40px; box-sizing: border-box; }
+  main { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  header.top { text-align: center; margin: 0 16px 10px; }
+  header.top h1 { font-size: 20px; letter-spacing: .18em; margin: 0; }
+  header.top .lede { font-size: 12.5px; margin: 4px 0 0; }
   canvas#c { width: min(100vw - 32px, 1200px); height: auto; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; touch-action: none; }
   p { font-size: 13px; margin: 12px 16px 0; text-align: center; line-height: 1.5; max-width: 760px; }
   small { opacity: .6; }
-  .credit { margin-top: 10px; font-size: 12px; letter-spacing: .08em; opacity: .7; }
+  button, input, select, textarea { font: 12px "Courier New", Courier, monospace; color: #535353; }
+  .bar { display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+  .lbl { font-size: 11px; letter-spacing: .14em; font-weight: bold; }
+  .seg { display: inline-flex; border: 1px solid #535353; border-radius: 3px; overflow: hidden; }
+  .seg button { background: #fff; border: 0; border-right: 1px solid #535353; padding: 6px 14px; cursor: pointer; font-weight: bold; letter-spacing: .08em; }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: #535353; color: #fff; }
+  .status { min-height: 1.5em; margin-top: 8px; font-weight: bold; }
   .picker { max-width: 1200px; margin: 14px 16px 0; text-align: center; }
-  .picker h2 { font-size: 12px; letter-spacing: .14em; margin: 10px 0 6px; }
+  .picker h2, .panel h2 { font-size: 12px; letter-spacing: .14em; margin: 10px 0 8px; }
   .group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 8px; }
-  .ch { background: #fff; border: 1px solid #c9c9c9; border-radius: 3px; padding: 6px 6px 4px; width: 84px; cursor: pointer; font: 10px "Courier New", monospace; color: #535353; }
+  .ch { background: #fff; border: 1px solid #c9c9c9; border-radius: 3px; padding: 6px 6px 4px; width: 84px; cursor: pointer; font-size: 10px; }
   .ch:hover { border-color: #535353; }
   .ch.sel { border: 2px solid #535353; background: #fffbe6; }
   .ch canvas { width: 48px; height: 56px; image-rendering: pixelated; display: block; margin: 0 auto 4px; }
   .ch .pw { display: block; color: #c0392b; font-weight: bold; font-size: 8px; margin-top: 2px; }
-  section.faq { max-width: 760px; margin: 28px 16px 0; font-size: 12.5px; line-height: 1.55; border-top: 1px solid #ccc; padding-top: 16px; }
+  .panel { width: min(100vw - 32px, 760px); box-sizing: border-box; margin: 24px 16px 0; border-top: 1px solid #ccc; padding-top: 14px; }
+  .panel h3 { font-size: 12px; margin: 14px 0 6px; }
+  .panel .note { text-align: left; margin: 6px 0 0; font-size: 11.5px; opacity: .8; min-height: 1.2em; }
+  .board { list-style: none; padding: 0; margin: 10px 0 0; border: 1px solid #ddd; background: #fff; }
+  .board li { display: grid; grid-template-columns: 2.2em 2em 1fr auto 4.5em 4.5em; gap: 6px; align-items: center; padding: 6px 10px; border-bottom: 1px solid #eee; font-size: 12px; }
+  .board li:last-child { border-bottom: 0; }
+  .board li.empty { display: block; text-align: center; opacity: .7; }
+  .board li.me { background: #fffbe6; }
+  .board .rk { font-weight: bold; } .board .sc { text-align: right; font-weight: bold; } .board .tm { text-align: right; opacity: .7; } .board .rn { opacity: .7; font-size: 11px; }
+  .board .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fl { font-size: 16px; line-height: 1; } .cc { font-size: 9px; font-weight: bold; border: 1px solid #535353; border-radius: 2px; padding: 1px 3px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; font-size: 12px; }
+  .row label { font-weight: bold; }
+  form.stack { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  form.stack input, form.stack textarea, select { background: #fff; border: 1px solid #c9c9c9; border-radius: 3px; padding: 7px 8px; }
+  form.stack textarea { min-height: 90px; resize: vertical; }
+  .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .btn { background: #535353; color: #fff; border: 0; border-radius: 3px; padding: 8px 14px; cursor: pointer; font-weight: bold; letter-spacing: .06em; }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .link { background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+  section.faq { width: min(100vw - 32px, 760px); box-sizing: border-box; margin: 28px 16px 0; font-size: 12.5px; line-height: 1.55; border-top: 1px solid #ccc; padding-top: 16px; }
   section.faq h2 { font-size: 14px; letter-spacing: .1em; margin: 0 0 8px; }
   section.faq h3 { font-size: 12.5px; margin: 14px 0 3px; }
-  section.faq p { text-align: left; margin: 0; font-size: 12.5px; }
+  section.faq p { text-align: left; margin: 0; font-size: 12.5px; max-width: none; }
+  footer { margin-top: 28px; text-align: center; font-size: 11.5px; opacity: .7; padding: 0 16px; }
+  footer p { margin: 4px auto; }
 </style>
 </head>
 <body>
-<canvas id="c" width="600" height="150"></canvas>
+<header class="top">
+  <h1>DELHI DINO</h1>
+  <p class="lede">The free online dino game, Delhi edition: jump the barricades, pick your runner, reach 1000.</p>
+</header>
+<main>
+<canvas id="c" width="600" height="150" role="img" aria-label="Delhi Dino game. Press Space or tap to start and jump."></canvas>
+<noscript><p>Delhi Dino needs JavaScript to run.</p></noscript>
+<div class="bar">
+  <span class="lbl">DIFFICULTY</span>
+  <div class="seg" id="diff" role="group" aria-label="Difficulty">
+    <button type="button" data-d="easy">EASY</button><button type="button" data-d="medium">MEDIUM</button><button type="button" data-d="hard">HARD</button>
+  </div>
+</div>
+<p class="status" id="status" aria-live="polite"></p>
 <p>
   SPACE / ↑ / tap to jump the Delhi Police barricades. Every barricade you clear closes the gap.<br>
   Reach <b>1000 points</b> and your runner catches up with them.<br>
@@ -35,35 +146,85 @@
 
 <div class="picker" id="picker"><h2>CHOOSE YOUR RUNNER</h2></div>
 
-<p class="credit">created by adz_25</p>
+<section class="panel" id="board" aria-labelledby="boardH">
+  <h2 id="boardH">LEADERBOARD</h2>
+  <div class="seg" id="boardTabs" role="group" aria-label="Leaderboard difficulty">
+    <button type="button" data-d="easy">EASY</button><button type="button" data-d="medium">MEDIUM</button><button type="button" data-d="hard">HARD</button>
+  </div>
+  <ol class="board" id="boardList"></ol>
+  <p class="note" id="boardNote"></p>
+  <div class="row"><label for="country">Your flag</label><select id="country"></select><span id="myBest"></span></div>
+
+  <div id="authOut">
+    <h3 id="authTitle">Sign in with your email to post scores with your flag</h3>
+    <form class="stack" id="authForm">
+      <input type="email" id="aEmail" placeholder="email" autocomplete="email" required>
+      <input type="password" id="aPass" placeholder="password (6+ characters)" autocomplete="current-password" minlength="6" required>
+      <input type="text" id="aName" placeholder="display name on the leaderboard" maxlength="24" minlength="2" hidden>
+      <div class="actions">
+        <button type="submit" class="btn" id="aSubmit">Sign in</button>
+        <button type="button" class="link" id="aToggle">New here? Create an account</button>
+      </div>
+    </form>
+  </div>
+  <div id="authIn" class="row" hidden>Signed in as <span id="me"></span> <button type="button" class="link" id="bSignout">Sign out</button></div>
+  <p class="note" id="authMsg" aria-live="polite"></p>
+</section>
+
+<section class="panel" id="feedback" aria-labelledby="fbH">
+  <h2 id="fbH">FEEDBACK · WHAT SHOULD WE BUILD NEXT?</h2>
+  <form class="stack" id="fbForm">
+    <input id="fbName" placeholder="your name (optional)" maxlength="60" autocomplete="name">
+    <input id="fbEmail" type="email" placeholder="your email, if you'd like a reply (optional)" maxlength="120" autocomplete="email">
+    <textarea id="fbMsg" required minlength="3" maxlength="2000" placeholder="A new runner? A new level? Something broken?"></textarea>
+    <input type="checkbox" id="fbBot" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="actions"><button type="submit" class="btn" id="fbSend">Send feedback</button></div>
+  </form>
+  <p class="note" id="fbOut" aria-live="polite"></p>
+</section>
 
 <section class="faq">
   <h2>FAQ</h2>
-  <h3>What is this?</h3>
-  <p>A spoof of the game Chrome shows when your internet drops. Instead of cacti there are Delhi Police barricades, and instead of running from nothing, your runner is trying to catch up with two politicians who keep sprinting away. It is political satire in pixel form, made by adz_25.</p>
+  <h3>What is Delhi Dino?</h3>
+  <p>Delhi Dino is a free online dino game in the style of the T-Rex runner Chrome shows when your internet drops. Instead of cacti there are Delhi Police barricades, and instead of running from nothing, your runner chases two politicians who keep sprinting away. It is political satire in pixel form, made by adz_25.</p>
+  <h3>How do I play?</h3>
+  <p>Press Space or the Up arrow, or tap the screen, to jump. Clear the yellow barricades, close the gap, and reach 1000 points to catch up. It runs in any modern browser on desktop or phone, with nothing to install.</p>
+  <h3>What are Easy, Medium and Hard?</h3>
+  <p>Easy starts slower, tops out at a lower speed and spaces barricades further apart. Medium is the classic run. Hard starts fast, gets faster, uses more of the tall ROAD CLOSED barricades and, for journalists, sends police in more often. Each difficulty keeps its own best score.</p>
+  <h3>How does the leaderboard work?</h3>
+  <p>Sign in with your email to post your runs. Each player's best run per difficulty appears on the global board with their display name and country flag. Runs are ranked by points, and ties at 1000 go to whoever got there faster.</p>
   <h3>Is any of this real?</h3>
-  <p>No. Nothing in the game depicts a real event. The barricades, the chase, the speech bubbles, the "GOTCHA" ending and the super-cape are all jokes. The game does not claim that anyone named here did, said or had anything done to them. It is commentary, not reporting.</p>
+  <p>No. Nothing in the game depicts a real event. The barricades, the chase, the speech bubbles, the GOTCHA ending and the super-cape are all jokes. The game does not claim that anyone named here did, said or had anything done to them. It is commentary, not reporting.</p>
   <h3>Who are the runners?</h3>
   <p>Like chromedino.com lets you swap the dinosaur for other characters, this version lets you run as the dino or as a cast of pixel avatars named after public figures and creators: Neha Bora, Rahul Gandhi, Abhijeet Dipke, Saurav Das, Ashutosh Ranka and Ratna Singh, plus a journalists' bench of KK, Samdish Bhatia, Peek TV, Rana Ayyub and Peeing Human. The sprites are 16-pixel-wide stick figures with a name tag, not likenesses. None of these people made, approved or endorsed the game.</p>
   <h3>Why does Neha Bora get a cape?</h3>
-  <p>Her runner has the only special power in the game: <b>SANGATHAN</b> (organising). Where every other runner is "detained" the moment they hit a barricade, Neha gets three chances to rally — supporters appear, the group regroups in an orderly line, and the run continues from the barricade. The cape is the joke made visible: the superpower here is getting people organised, not flying.</p>
+  <p>Her runner has a special power: <b>SANGATHAN</b> (organising). Where most runners are "detained" the moment they hit a barricade, Neha gets three chances to rally — supporters appear, the group regroups in an orderly line, and the run continues from the barricade. The cape is the joke made visible: the superpower here is getting people organised, not flying.</p>
   <h3>What do the journalists do?</h3>
   <p>They run with a camera and a <b>PRESS PASS</b>: barricades don't stop them, because reporting is their job. What does stop them is a Delhi Police constable who runs in every so often with a STOP hand. Jump over him and the "● REC" light stays on; get caught and he seizes a camera with a line like "Permission hai?". Three cameras, then the run ends with REPORTING STOPPED. That is the joke, and the point. Peeing Human is drawn as an anonymous hoodie on purpose.</p>
   <h3>Who are the two people running away?</h3>
   <p>Pixel caricatures of Narendra Modi and Amit Shah, in the tradition of newspaper cartoons. They are never hurt: when you reach 1000 points they topple over and your runner says "GOTCHA." That's the whole catch.</p>
-  <h3>How long is a run?</h3>
-  <p>Points tick up with distance and jump a little for every barricade cleared. The gap meter counts down from 1000. Speed ramps up along the way, so a full run takes a couple of minutes of attention. High scores are saved in your browser.</p>
-  <h3>Can I add a character?</h3>
-  <p>Yes. The code is one HTML file. Every runner is a small palette object in the <code>CHARS</code> list; add one and it appears in the picker.</p>
+  <h3>What do you store about me?</h3>
+  <p>Nothing, unless you sign in or send feedback. Signing in stores your email (for login), a display name, your country and your scores. Feedback stores what you write and is emailed to the site's creator. Your best scores on this device are kept in your browser's local storage.</p>
   <h3>Why Delhi Police barricades?</h3>
-  <p>Because the yellow "DELHI POLICE" barricade is the city's most recognisable piece of street furniture, and because satire works best with real props and imaginary events. Police characters only ever appear as background figures; nothing in the game lets you attack anyone.</p>
+  <p>Because the yellow "DELHI POLICE" barricade is the city's most recognisable piece of street furniture, and because satire works best with real props and imaginary events. Police characters only ever appear as background figures or obstacles; nothing in the game lets you attack anyone.</p>
+  <h3>Is Delhi Dino affiliated with Google?</h3>
+  <p>No. Delhi Dino is an independent parody of the Chrome offline game. The sprites and code are original.</p>
 </section>
+</main>
+<footer>
+  <p>Delhi Dino is an independent fan parody of the Chrome offline game. Not affiliated with Google.</p>
+  <p>created by adz_25</p>
+</footer>
 
 <script>
 'use strict';
 const W = 600, H = 150, GROUND = 130, S = 2;
 const cv = document.getElementById('c');
 const ctx = cv.getContext('2d');
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
 
 // ---------- pixel sprites ----------
 const PAL = {
@@ -158,16 +319,61 @@ for (const c of CHARS) if (c.journo) { c.power = 'PRESS PASS'; c.tag = 'walks th
 const SPR = { dino: frames(DINO_BODY, DINO_LEGS), modi: frames(MODI_BODY, MODI_LEGS), shah: frames(SHAH_BODY, SHAH_LEGS), cloud: sprite(CLOUD), cop: sprite(COP),
   supporter1: person({ H: '#222', T: '#c0392b', B: '#3b5998' }), supporter2: person({ H: '#3a2a1c', T: '#2a9d8f', B: '#444' }) };
 for (const c of CHARS) if (c.cfg) SPR[c.id] = person(c.cfg);
-function playerSprites() { return SPR[G.char.id]; }
 function playerH() { return G.char.id === 'dino' ? 40 : 46; }
 
 const LINES = { modi: ['Mitron... bhaago!', 'Main nahi rukunga!', 'Yeh kaun hai?'], shah: ['Chronology samajhiye!', 'Aur barricade lagao!', 'Section 144 lagao!'] };
 
+// ---------- difficulty ----------
+// medium is the original tuning; gapK widens spacing with speed so every gap stays jumpable
+const DIFFS = {
+  easy:   { label: 'EASY',   v0: 5,   vmax: 10, ramp: 300, gapMin: 290, gapRand: 240, gapK: 12, tallP: .20, doubleSpeed: 99,  cop: [560, 360], copBoost: 1.6 },
+  medium: { label: 'MEDIUM', v0: 6,   vmax: 13, ramp: 220, gapMin: 230, gapRand: 220, gapK: 12, tallP: .30, doubleSpeed: 7,   cop: [380, 320], copBoost: 2.2 },
+  hard:   { label: 'HARD',   v0: 7.5, vmax: 15, ramp: 160, gapMin: 240, gapRand: 180, gapK: 15, tallP: .40, doubleSpeed: 7.5, cop: [260, 220], copBoost: 2.8 },
+};
+const DIFF = () => DIFFS[G.diff];
+
+// ---------- countries & flags ----------
+const CODES = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
+const REGION = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(['en'], { type: 'region' }) : null;
+const countryName = cc => { try { return (REGION && REGION.of(cc)) || cc; } catch (e) { return cc; } };
+const flagEmoji = cc => /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map(ch => 0x1F1A5 + ch.charCodeAt(0))) : '';
+// Windows has no flag emoji; detect it and fall back to a two-letter badge
+const FLAG_OK = (() => {
+  try {
+    const c = document.createElement('canvas'); c.width = c.height = 20; const g = c.getContext('2d');
+    g.font = '16px sans-serif'; g.textBaseline = 'top'; g.fillText(flagEmoji('IN'), 0, 0);
+    const d = g.getImageData(0, 0, 20, 20).data;
+    for (let i = 0; i < d.length; i += 4) if (d[i + 3] && (Math.abs(d[i] - d[i + 1]) > 40 || Math.abs(d[i + 1] - d[i + 2]) > 40)) return true;
+  } catch (e) {}
+  return false;
+})();
+function flagNode(cc) {
+  const s = document.createElement('span');
+  if (FLAG_OK) { s.className = 'fl'; s.textContent = flagEmoji(cc); } else { s.className = 'cc'; s.textContent = cc; }
+  s.title = countryName(cc); return s;
+}
+function guessCountry() {
+  const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+  if (/Kolkata|Calcutta/.test(tz)) return 'IN';
+  for (const l of navigator.languages || [navigator.language]) { const m = /-([a-z]{2})$/i.exec(l || ''); if (m && CODES.includes(m[1].toUpperCase())) return m[1].toUpperCase(); }
+  return 'IN';
+}
+
 // ---------- game state ----------
-const G = { hi: +localStorage.getItem('dd.hi') || 0, char: CHARS.find(c => c.id === localStorage.getItem('dd.char')) || CHARS[0] };
+function loadBest() { try { return JSON.parse(store.get('dd.best', '{}')) || {}; } catch (e) { return {}; } }
+const BEST = loadBest();
+if (!BEST.medium && +store.get('dd.hi', 0) > 0) BEST.medium = { score: +store.get('dd.hi', 0), ms: 0, runner: '' };   // carry over the old single high score
+const G = {
+  char: CHARS.find(c => c.id === store.get('dd.char', '')) || CHARS[0],
+  diff: DIFFS[store.get('dd.diff', '')] ? store.get('dd.diff', '') : 'medium',
+  country: CODES.includes(store.get('dd.country', '')) ? store.get('dd.country', '') : guessCountry(),
+  sim: false,
+};
 function reset() {
+  const D = DIFF();
   G.state = 'title';          // title | playing | rally | over | won
-  G.t = 0; G.endT = 0; G.speed = 6; G.score = 0;
+  G.t = 0; G.endT = 0; G.speed = D.v0; G.score = 0; G.ticks = 0;
+  G.hi = BEST[G.diff] ? BEST[G.diff].score : 0;
   G.dino = { x: 50, y: GROUND - playerH(), vy: 0, ground: true, inv: 0 };
   G.charges = G.char.power ? 3 : 0;   // Neha: rallies left · journalists: cameras left
   G.cops = []; G.nextCop = 260;
@@ -189,8 +395,8 @@ function action() {
   else if (G.t - G.endT > 25) { reset(); start(); }
 }
 function spawnObstacle() {
-  const r = Math.random(); let o;
-  if (r < 0.45) o = { units: 1, tall: false }; else if (r < 0.75) o = { units: 1, tall: true }; else if (G.speed >= 7) o = { units: 2, tall: false }; else o = { units: 1, tall: false };
+  const D = DIFF(), r = Math.random(), o = { units: 1, tall: false };
+  if (r < D.tallP) o.tall = true; else if (r >= .75 && G.speed >= D.doubleSpeed) o.units = 2;
   o.w = o.units * 60 + (o.units - 1) * 4; o.h = o.tall ? 44 : 30; o.x = W + 10; o.passed = false; G.obs.push(o);
 }
 function scrollBackground(k) {
@@ -201,37 +407,39 @@ function scrollBackground(k) {
   const last = G.bg[G.bg.length - 1];
   if (!last || last.x + bw(last) < W - 120 - Math.random() * 160) G.bg.push(Math.random() < 0.55 ? { type: 'cops', x: W + 10, n: 2 + Math.floor(Math.random() * 3) } : { type: 'bus', x: W + 10 });
 }
+function endRun(state) { G.state = state; G.endT = G.t; G.bubble = null; finishRun(); }
 function step() {
   G.t++;
-  const d = G.dino, ph = playerH();
+  const d = G.dino, ph = playerH(), D = DIFF();
   if (!d.ground) { d.vy += 0.5; d.y += d.vy; if (d.y >= GROUND - ph) { d.y = GROUND - ph; d.vy = 0; d.ground = true; } }
   for (const f of G.fug) {
     if (!f.ground) { f.vy += 0.5; f.y += f.vy; if (f.y >= 0) { f.y = 0; f.vy = 0; f.ground = true; } }
     if (G.state === 'won') f.angle = Math.min(Math.PI / 2, f.angle + 0.12);
   }
-  if (G.state === 'rally') { if (++G.rally.t > 80) { G.state = 'playing'; d.inv = 90; G.rally = null; } return; }
+  if (G.state === 'rally') { G.ticks++; if (++G.rally.t > 80) { G.state = 'playing'; d.inv = 90; G.rally = null; } return; }
   if (G.state !== 'playing') { if (G.state === 'title') scrollBackground(1.2); return; }
+  G.ticks++;
   if (d.inv > 0) d.inv--;
-  G.speed = Math.min(13, 6 + G.score / 220);
+  G.speed = Math.min(D.vmax, D.v0 + G.score / D.ramp);
   G.score += G.speed * 0.03;
   scrollBackground(G.speed);
   for (const c of G.clouds) c.x -= G.speed * 0.3; G.clouds = G.clouds.filter(c => c.x > -40);
   if (G.clouds.length < 3 && Math.random() < 0.01) G.clouds.push({ x: W + 10, y: 20 + Math.random() * 50 });
   for (const b of G.bits) { b.x -= G.speed; if (b.x < -10) { b.x = W + Math.random() * 40; b.y = GROUND + 4 + Math.random() * 10; } }
   for (const o of G.obs) o.x -= G.speed; G.obs = G.obs.filter(o => o.x + o.w > -10);
-  const last = G.obs[G.obs.length - 1]; const minGap = 230 + G.speed * 12;
-  if (!last || last.x + last.w < W - minGap - Math.random() * 220) { if (G.t > 40) spawnObstacle(); }
+  const last = G.obs[G.obs.length - 1]; const minGap = D.gapMin + G.speed * D.gapK;
+  if (!last || last.x + last.w < W - minGap - Math.random() * D.gapRand) { if (G.t > 40) spawnObstacle(); }
   for (const f of G.fug) { const fx = fugX(f); for (const o of G.obs) if (f.ground && o.x > fx + 10 && o.x < fx + 10 + G.speed * 4) { f.vy = -6.5; f.ground = false; } }
   // journalists: Delhi Police constables run in to stop the reporting
   if (G.char.journo) {
-    if (--G.nextCop <= 0 && G.t > 120) { G.cops.push({ x: W + 30, caught: false, t: 0 }); G.nextCop = 380 + Math.random() * 320; }
+    if (--G.nextCop <= 0 && G.t > 120) { G.cops.push({ x: W + 30, caught: false, t: 0 }); G.nextCop = D.cop[0] + Math.random() * D.cop[1]; }
     for (const c of G.cops) {
-      c.t++; c.x -= c.caught ? G.speed : G.speed + 2.2;
+      c.t++; c.x -= c.caught ? G.speed : G.speed + D.copBoost;
       const hit = !c.caught && d.inv <= 0 && d.x + 8 < c.x + 20 && d.x + 30 > c.x + 4 && d.y + ph > GROUND - 28;
       if (hit) {
-        c.caught = true; G.charges--; d.inv = 110; G.bubble = { f: null, cx: c.x + 12, cy: GROUND - 32, text: ['Permission hai?', 'Camera do. Baad mein milega.', 'Yahan shooting allowed nahi.'][Math.floor(Math.random() * 3)], t: 90 };
+        c.caught = true; G.charges--; d.inv = 110; G.bubble = { f: null, text: ['Permission hai?', 'Camera do. Baad mein milega.', 'Yahan shooting allowed nahi.'][Math.floor(Math.random() * 3)], t: 90 };
         G.pops.push({ x: d.x, y: d.y - 14, t: 0, txt: 'CAMERA SEIZED' });
-        if (G.charges <= 0) { G.state = 'over'; G.endT = G.t; saveHi(); return; }
+        if (G.charges <= 0) { endRun('over'); return; }
       }
     }
     G.cops = G.cops.filter(c => c.x > -40);
@@ -242,18 +450,28 @@ function step() {
     const hit = d.x + 8 < o.x + o.w - 2 && d.x + 30 > o.x + 2 && d.y + ph > GROUND - o.h + 2 && d.y + 6 < GROUND;
     if (hit && d.inv <= 0) {
       if (G.charges > 0) { G.charges--; G.state = 'rally'; G.rally = { t: 0, x: o.x }; G.obs = G.obs.filter(q => q !== o); G.bubble = null; return; }
-      G.state = 'over'; G.endT = G.t; G.bubble = null; saveHi(); return;
+      endRun('over'); return;
     }
   }
   G.pops = G.pops.filter(p => ++p.t < 30);
   if (--G.nextBubble <= 0) { const f = G.fug[Math.random() < 0.5 ? 0 : 1]; const ls = LINES[f.who]; G.bubble = { f, text: ls[Math.floor(Math.random() * ls.length)], t: 100 }; G.nextBubble = 220 + Math.random() * 200; }
   if (G.bubble && --G.bubble.t <= 0) G.bubble = null;
-  if (G.score >= 1000) { G.score = 1000; G.state = 'won'; G.endT = G.t; G.bubble = null; saveHi(); for (const f of G.fug) { f.y = 0; f.ground = true; } G.fug[1].dx = 62; }
+  if (G.score >= 1000) { G.score = 1000; for (const f of G.fug) { f.y = 0; f.ground = true; } G.fug[1].dx = 62; endRun('won'); }
 }
-function saveHi() { G.hi = Math.max(G.hi, Math.floor(G.score)); localStorage.setItem('dd.hi', G.hi); }
+// best per difficulty on this device; signed-in players also post to the global board
+function finishRun() {
+  if (G.sim) return;
+  const run = { difficulty: G.diff, score: Math.floor(G.score), duration_ms: Math.round(G.ticks * 1000 / 60), runner: G.char.name };
+  const prev = BEST[G.diff];
+  const better = !prev || run.score > prev.score || (run.score === prev.score && prev.ms && run.duration_ms < prev.ms);
+  if (better) { BEST[G.diff] = { score: run.score, ms: run.duration_ms, runner: run.runner }; store.set('dd.best', JSON.stringify(BEST)); }
+  G.hi = BEST[G.diff].score;
+  if (typeof onRunEnd === 'function') onRunEnd(run, better);
+}
 
 // ---------- rendering ----------
 function pad(n) { return String(Math.floor(n)).padStart(5, '0'); }
+function secs(ms) { return (ms / 1000).toFixed(1) + 's'; }
 function text(t, x, y, size = 9, align = 'center', color = '#535353', bold = false) { ctx.font = (bold ? 'bold ' : '') + size + 'px monospace'; ctx.textAlign = align; ctx.fillStyle = color; ctx.fillText(t, x, y); }
 function drawIndiaGate(x) {
   ctx.fillStyle = '#e3e3e3'; ctx.fillRect(x, GROUND - 56, 64, 56); ctx.fillRect(x - 4, GROUND - 58, 72, 5); ctx.fillRect(x + 22, GROUND - 68, 20, 12);
@@ -324,10 +542,9 @@ function render() {
   }
   if (G.bubble) { const f = G.bubble.f; if (f) bubble(G.bubble.text, Math.round(fugX(f)) + 20, GROUND - 58 + Math.round(f.y)); else { const c = G.cops.find(c => c.caught); if (c) bubble(G.bubble.text, Math.round(c.x) + 12, GROUND - 32); } }
   // rally supporters (Neha's SANGATHAN)
-  if (G.state === 'rally' || (G.rally && G.rally.t < 999)) {}
   if (G.state === 'rally') {
     const k = G.rally.t; const bob = Math.sin(k / 4) * 2;
-    [['supporter1', -40], ['supporter2', 110], ['supporter1', 150]].forEach(([w, dx], i) => { const sx = G.dino.x + dx + Math.max(0, (40 - k)) * (dx < 0 ? -1 : 1) * 2; ctx.drawImage(SPR[w].stand, Math.round(sx), GROUND - 46 + bob); ctx.fillStyle = '#fff'; ctx.fillRect(sx + 14, GROUND - 62, 22, 9); ctx.strokeStyle = '#535353'; ctx.strokeRect(sx + 14.5, GROUND - 61.5, 21, 8); text('SANGATHAN', sx + 25, GROUND - 55, 4.5, 'center', '#c0392b', true); });
+    [['supporter1', -40], ['supporter2', 110], ['supporter1', 150]].forEach(([w, dx]) => { const sx = G.dino.x + dx + Math.max(0, (40 - k)) * (dx < 0 ? -1 : 1) * 2; ctx.drawImage(SPR[w].stand, Math.round(sx), GROUND - 46 + bob); ctx.fillStyle = '#fff'; ctx.fillRect(sx + 14, GROUND - 62, 22, 9); ctx.strokeStyle = '#535353'; ctx.strokeRect(sx + 14.5, GROUND - 61.5, 21, 8); text('SANGATHAN', sx + 25, GROUND - 55, 4.5, 'center', '#c0392b', true); });
   }
   // player
   const d = G.dino, c = G.char;
@@ -339,33 +556,40 @@ function render() {
   if (G.state === 'won') bubble('GOTCHA.', d.x + 30, d.y - 2);
   if (G.state === 'over' && c.id === 'dino') { ctx.fillStyle = '#f7f7f7'; ctx.fillRect(d.x + 18, d.y + 2, 4, 4); ctx.fillStyle = '#535353'; ctx.fillRect(d.x + 19, d.y + 3, 2, 2); }
   for (const p of G.pops) if (p.t % 6 < 4) text(p.txt, p.x, p.y - p.t * 0.5, 8, 'left', '#535353', true);
-  // HUD
+  // HUD: flag + best for this difficulty + current score
+  const fl = FLAG_OK ? flagEmoji(G.country) : G.country;
   text('HI ' + pad(G.hi) + '  ' + pad(G.score), W - 10, 18, 11, 'right');
+  ctx.font = '11px monospace'; const hw = ctx.measureText('HI ' + pad(G.hi) + '  ' + pad(G.score)).width;
+  text(fl, W - 16 - hw, 18, FLAG_OK ? 11 : 8, 'right', '#535353', !FLAG_OK);
+  text(DIFF().label, W - 10, 30, 7, 'right', '#999', true);
   text('GAP ' + Math.round(gap()) + 'm', 10, 18, 11, 'left');
   if (c.power) { const lbl = c.journo ? 'CAMERAS' : 'SANGATHAN'; text(lbl, 10, 30, 7, 'left', '#c0392b', true); const ox = 14 + lbl.length * 4.3; for (let i = 0; i < 3; i++) { ctx.fillStyle = i < G.charges ? '#c0392b' : '#ddd'; ctx.fillRect(ox + i * 9, 24, 6, 7); } }
   text('created by adz_25', W - 6, H - 4, 8, 'right', '#9a9a9a');
   // overlays
-  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text(c.journo ? 'barricades can\'t stop the press — but jump the constables, or they take your camera' : 'pick another runner below', W / 2, 80, 7, 'center', '#999'); }
+  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  ' + DIFF().label + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text(c.journo ? 'barricades can\'t stop the press — but jump the constables, or they take your camera' : 'pick a difficulty and a runner below', W / 2, 80, 7, 'center', '#999'); }
   else if (G.state === 'rally') { text('S A N G A T H A N !', W / 2, 52, 14, 'center', '#c0392b', true); text('Regrouping in an orderly line. Continuing from the barricade. ' + G.charges + ' left.', W / 2, 68, 8, 'center'); }
   else if (G.state === 'over') { if (c.journo) { text('R E P O R T I N G   S T O P P E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police seized the last camera at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); } else { text('D E T A I N E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police got you first at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); } }
-  else if (G.state === 'won') { text('C A U G H T !', W / 2, 52, 14, 'center', '#535353', true); text('1000 points · ' + c.name + ' closed the gap · SPACE to run it back', W / 2, 68, 9, 'center'); }
+  else if (G.state === 'won') { text('C A U G H T !', W / 2, 52, 14, 'center', '#535353', true); text('1000 on ' + DIFF().label + ' in ' + secs(G.ticks * 1000 / 60) + ' · ' + c.name + ' closed the gap · SPACE to run it back', W / 2, 68, 9, 'center'); }
 }
 
 // ---------- loop & input ----------
 let last = 0, acc = 0, paused = false;
 function loop(ts) { if (!paused) { acc += Math.min(ts - last, 100); last = ts; while (acc >= 1000 / 60) { step(); acc -= 1000 / 60; } render(); } requestAnimationFrame(loop); }
 requestAnimationFrame(ts => { last = ts; loop(ts); });
-window.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); action(); } });
+window.addEventListener('keydown', e => {
+  if (e.target.closest && e.target.closest('input, textarea, select')) return;   // let people type in the forms
+  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); action(); }
+});
 cv.addEventListener('pointerdown', e => { e.preventDefault(); action(); });
 
 // ---------- character picker ----------
-function setChar(c) { G.char = c; localStorage.setItem('dd.char', c.id); reset(); document.querySelectorAll('.ch').forEach(b => b.classList.toggle('sel', b.dataset.id === c.id)); }
+function setChar(c) { G.char = c; store.set('dd.char', c.id); reset(); document.querySelectorAll('.ch').forEach(b => b.classList.toggle('sel', b.dataset.id === c.id)); }
 (function buildPicker() {
   const root = document.getElementById('picker');
   for (const grp of ['Dino', 'Leaders', 'Journalists']) {
     const div = document.createElement('div'); div.className = 'group';
     for (const c of CHARS.filter(c => c.group === grp)) {
-      const b = document.createElement('button'); b.className = 'ch' + (c.id === G.char.id ? ' sel' : ''); b.dataset.id = c.id; b.title = c.tag || c.name;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'ch' + (c.id === G.char.id ? ' sel' : ''); b.dataset.id = c.id; b.title = c.tag || c.name;
       const th = document.createElement('canvas'); th.width = 48; th.height = 56; const g = th.getContext('2d'); g.imageSmoothingEnabled = false;
       const img = SPR[c.id].stand; if (c.cape) { g.fillStyle = '#c0392b'; g.beginPath(); g.moveTo(14, 22); g.lineTo(30, 22); g.lineTo(6, 48); g.lineTo(0, 40); g.fill(); }
       g.drawImage(img, (48 - img.width) / 2 + (c.id === 'dino' ? 0 : 2), 56 - img.height - 2);
@@ -376,11 +600,27 @@ function setChar(c) { G.char = c; localStorage.setItem('dd.char', c.id); reset()
   }
 })();
 
-// ---------- demo capture (used to record the GIF) ----------
+// ---------- difficulty picker ----------
+function setDiff(d) {
+  G.diff = d; store.set('dd.diff', d); reset();
+  document.querySelectorAll('#diff button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === d)));
+  if (typeof showBoard === 'function') showBoard(d);
+}
+document.querySelectorAll('#diff button').forEach(b => b.onclick = () => setDiff(b.dataset.d));
+document.querySelectorAll('#diff button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === G.diff)));
+
+// ---------- demo capture & autoplay (used to record the GIF and to test tuning) ----------
+function aiJump() {
+  const d = G.dino; if (G.state !== 'playing' || !d.ground) return;
+  const o = G.obs.find(o => o.x + o.w > d.x);
+  if (o && !G.char.journo && o.x - d.x < 30 + G.speed * 8) return jump();
+  const c = G.cops.find(c => !c.caught && c.x > d.x);
+  if (c && c.x - d.x < 40 + G.speed * 6) jump();
+}
 window.__capture = function (opts) {
   const { every = 3, max = 420, charId = 'neha', from = 760 } = opts || {};
-  paused = true; const sr = Math.random; let seed = 5; Math.random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); G.score = from;
+  paused = true; G.sim = true; const sr = Math.random; let seed = 5; Math.random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const keep = G.char; G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); G.score = from;
   const out = []; let rallied = false;
   for (let n = 0; out.length < max; n++) {
     if (G.state === 'playing') { const o = G.obs.find(o => o.x + o.w > G.dino.x); if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8 && !(G.charges === 3 && !rallied && G.score > from + 60)) jump(); if (G.charges < 3) rallied = true; }
@@ -389,16 +629,188 @@ window.__capture = function (opts) {
     if (G.state === 'won' && G.t - G.endT > 80) break; if (G.state === 'over' && G.t - G.endT > 50) break;
   }
   window.__result = { state: G.state, score: Math.floor(G.score), frames: out.length, charges: G.charges };
-  Math.random = sr; paused = false; G.char = CHARS.find(c => c.id === localStorage.getItem('dd.char')) || CHARS[0]; reset(); return out;
+  Math.random = sr; paused = false; G.sim = false; G.char = keep; reset(); return out;
 };
-window.__autoplay = function (charId, max = 20000) {
-  paused = true; G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); let n = 0;
-  while (n++ < max && G.state !== 'won' && G.state !== 'over') { if (G.state === 'playing') { const o = G.obs.find(o => o.x + o.w > G.dino.x); if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8 && !G.char.journo) jump(); const c = G.cops.find(c => !c.caught && c.x > G.dino.x); if (c && G.dino.ground && c.x - G.dino.x < 40 + G.speed * 6) jump(); } step(); }
-  const r = { charId, state: G.state, score: Math.floor(G.score), steps: n, charges: G.charges }; paused = false; reset(); return r;
+window.__autoplay = function (charId, diff, max = 20000) {
+  paused = true; G.sim = true; const keep = [G.char, G.diff];
+  G.char = CHARS.find(c => c.id === charId) || CHARS[0]; G.diff = diff || G.diff; reset(); start(); let n = 0;
+  while (n++ < max && G.state !== 'won' && G.state !== 'over') { aiJump(); step(); }
+  const r = { charId, diff: G.diff, state: G.state, score: Math.floor(G.score), secs: +(G.ticks / 60).toFixed(1), charges: G.charges };
+  paused = false; G.sim = false; [G.char, G.diff] = keep; reset(); return r;
 };
 if (new URLSearchParams(location.search).has('capture')) {
   window.addEventListener('load', async () => { const fr = window.__capture(); const r = await fetch('/frames', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(fr) }); document.title = 'captured ' + fr.length + ' (' + await r.text() + ')'; });
 }
+</script>
+
+<script>
+'use strict';
+// ================= backend: sign-in, global leaderboard, feedback =================
+// Fill these in to switch the backend on (see backend/SETUP.md). Both keys are public by design.
+// Never put a Supabase service_role key or database password here.
+const BACKEND = {
+  supabaseUrl: '',   // e.g. https://abcdefgh.supabase.co
+  supabaseKey: '',   // Supabase anon / publishable key
+  web3formsKey: '',  // Web3Forms access key; feedback is emailed to the inbox it was created for
+};
+const SUPABASE_JS = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js';
+const $ = id => document.getElementById(id);
+let sb = null, ME = null, PROFILE = null, boardDiff = G.diff, signupMode = false;
+
+function say(el, msg) { $(el).textContent = msg || ''; }
+function loadScript(src) { return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => fail(new Error('could not load ' + src)); document.head.appendChild(s); }); }
+
+// ---------- country select ----------
+(function buildCountries() {
+  const sel = $('country');
+  CODES.map(cc => [cc, countryName(cc)]).sort((a, b) => a[1].localeCompare(b[1])).forEach(([cc, nm]) => {
+    const o = document.createElement('option'); o.value = cc; o.textContent = (FLAG_OK ? flagEmoji(cc) + '  ' : '') + nm; sel.appendChild(o);
+  });
+  sel.value = G.country;
+  sel.onchange = async () => {
+    G.country = sel.value; store.set('dd.country', G.country); showMine();
+    if (sb && ME) { const { error } = await sb.from('profiles').update({ country: G.country }).eq('id', ME.id); say('authMsg', error ? 'Could not update your flag: ' + error.message : 'Flag updated.'); if (!error) { PROFILE.country = G.country; showMe(); showBoard(boardDiff); } }
+  };
+})();
+function showMine() {
+  const el = $('myBest'); el.textContent = ''; const b = BEST[boardDiff];
+  el.append('Your best on ' + DIFFS[boardDiff].label + ' (this device): ', flagNode(G.country), ' ' + (b ? b.score + (b.ms ? ' in ' + secs(b.ms) : '') : '—'));
+}
+
+// ---------- leaderboard ----------
+function row(rank, cc, name, runner, score, ms, mine) {
+  const li = document.createElement('li'); if (mine) li.className = 'me';
+  const cell = (cls, t) => { const s = document.createElement('span'); s.className = cls; s.textContent = t; return s; };
+  li.append(cell('rk', rank), flagNode(cc), cell('nm', name), cell('rn', runner || ''), cell('sc', score), cell('tm', ms ? secs(ms) : ''));
+  return li;
+}
+async function showBoard(d) {
+  boardDiff = d;
+  document.querySelectorAll('#boardTabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === d)));
+  showMine();
+  const list = $('boardList'); list.textContent = '';
+  if (!sb) {
+    const b = BEST[d];
+    if (b) list.append(row('—', G.country, 'You (this device)', b.runner, b.score, b.ms, true));
+    else { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'No runs on ' + DIFFS[d].label + ' yet. Your best will show here.'; list.append(li); }
+    say('boardNote', 'The global leaderboard with flags switches on once sign-in is connected.');
+    return;
+  }
+  say('boardNote', 'Loading…');
+  const { data, error } = await sb.from('leaderboard').select('display_name,country,score,duration_ms,runner').eq('difficulty', d)
+    .order('score', { ascending: false }).order('duration_ms', { ascending: true }).limit(10);
+  if (d !== boardDiff) return;
+  list.textContent = '';
+  if (error) { say('boardNote', 'Leaderboard unavailable right now.'); return; }
+  if (!data.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nobody on the ' + DIFFS[d].label + ' board yet. Be first.'; list.append(li); }
+  data.forEach((r, i) => list.append(row(i + 1, r.country, r.display_name, r.runner, r.score, r.duration_ms, PROFILE && r.display_name === PROFILE.display_name && r.country === PROFILE.country)));
+  say('boardNote', ME ? 'Your runs post automatically when they end.' : 'Sign in below to put your runs on the board.');
+}
+document.querySelectorAll('#boardTabs button').forEach(b => b.onclick = () => showBoard(b.dataset.d));
+
+// called by the game when a run ends
+async function onRunEnd(run, better) {
+  const label = DIFFS[run.difficulty].label;
+  say('status', (better ? 'New best on ' + label + ': ' : 'Run on ' + label + ': ') + run.score + (run.score >= 1000 ? ' in ' + secs(run.duration_ms) : ''));
+  if (boardDiff === run.difficulty) showMine();
+  if (!sb || run.score < 10) return;
+  if (!ME) { say('status', $('status').textContent + ' · sign in below to post it with your flag'); return; }
+  const { error } = await sb.from('scores').insert({ user_id: ME.id, difficulty: run.difficulty, score: run.score, duration_ms: run.duration_ms, runner: run.runner });
+  say('status', $('status').textContent + (error ? ' · not posted (' + error.message + ')' : ' · posted to the leaderboard ✓'));
+  if (!error) showBoard(run.difficulty);
+}
+
+// ---------- auth ----------
+function setMode(signup) {
+  signupMode = signup;
+  $('aName').hidden = !signup; $('aName').required = signup;
+  $('aPass').autocomplete = signup ? 'new-password' : 'current-password';
+  $('aSubmit').textContent = signup ? 'Create account' : 'Sign in';
+  $('aToggle').textContent = signup ? 'Have an account? Sign in' : 'New here? Create an account';
+  $('authTitle').textContent = signup ? 'Create an account: your name and flag go on the board' : 'Sign in with your email to post scores with your flag';
+  say('authMsg', '');
+}
+$('aToggle').onclick = () => setMode(!signupMode);
+function showMe() {
+  const me = $('me'); me.textContent = '';
+  if (PROFILE) me.append(flagNode(PROFILE.country), ' ' + PROFILE.display_name + ' (' + ME.email + ')'); else if (ME) me.append(ME.email);
+}
+async function onSession(session) {
+  ME = session ? session.user : null; PROFILE = null;
+  $('authOut').hidden = !!ME; $('authIn').hidden = !ME;
+  if (ME) {
+    const { data } = await sb.from('profiles').select('display_name,country').eq('id', ME.id).maybeSingle();
+    PROFILE = data || null;
+    if (PROFILE) { G.country = PROFILE.country; $('country').value = PROFILE.country; store.set('dd.country', G.country); }
+    if (!$('fbEmail').value) $('fbEmail').value = ME.email;
+    if (PROFILE && !$('fbName').value) $('fbName').value = PROFILE.display_name;
+  }
+  showMe(); showBoard(boardDiff);
+}
+$('authForm').onsubmit = async e => {
+  e.preventDefault();
+  if (!sb) { say('authMsg', 'Sign-in switches on shortly.'); return; }
+  const email = $('aEmail').value.trim(), password = $('aPass').value;
+  $('aSubmit').disabled = true; say('authMsg', signupMode ? 'Creating your account…' : 'Signing in…');
+  try {
+    if (signupMode) {
+      const { data, error } = await sb.auth.signUp({ email, password, options: { data: { display_name: $('aName').value.trim(), country: G.country }, emailRedirectTo: location.origin + location.pathname } });
+      if (error) throw error;
+      say('authMsg', data.session ? 'Welcome! You are signed in.' : 'Check your inbox to confirm your email, then sign in here.');
+    } else {
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      say('authMsg', 'Signed in.');
+    }
+    $('aPass').value = '';
+  } catch (err) {
+    say('authMsg', /confirm/i.test(err.message) ? 'Please confirm your email first (check your inbox), then sign in.' : err.message);
+  } finally { $('aSubmit').disabled = false; }
+};
+$('bSignout').onclick = async () => { await sb.auth.signOut(); say('authMsg', 'Signed out.'); };
+
+// ---------- feedback ----------
+$('fbForm').onsubmit = async e => {
+  e.preventDefault();
+  if ($('fbBot').checked) return;   // honeypot: bots tick hidden boxes
+  const name = $('fbName').value.trim(), email = $('fbEmail').value.trim(), message = $('fbMsg').value.trim();
+  if (message.length < 3) { say('fbOut', 'Write a little more first.'); return; }
+  $('fbSend').disabled = true; say('fbOut', 'Sending…');
+  let emailed = false, saved = false, lastErr = '';
+  try {
+    if (BACKEND.web3formsKey) {
+      const r = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: BACKEND.web3formsKey, subject: 'Delhi Dino feedback', from_name: 'Delhi Dino', name: name || 'Anonymous player', email: email || undefined, message, page: location.href }) });
+      const j = await r.json().catch(() => ({})); emailed = !!j.success; if (!emailed) lastErr = j.message || 'email failed';
+    }
+    if (sb) { const { error } = await sb.from('feedback').insert({ name: name || null, email: email || null, message }); saved = !error; if (error) lastErr = error.message; }
+  } catch (err) { lastErr = err.message; }
+  $('fbSend').disabled = false;
+  if (emailed || saved) { $('fbMsg').value = ''; say('fbOut', 'Thank you! Your feedback reached the creator.'); }
+  else say('fbOut', 'Sorry, that did not go through (' + (lastErr || 'unknown error') + '). Please try again.');
+};
+
+// ---------- boot ----------
+(async function boot() {
+  setMode(false);
+  const hasDb = BACKEND.supabaseUrl && BACKEND.supabaseKey;
+  if (!hasDb) {
+    $('authForm').querySelectorAll('input, button').forEach(el => el.disabled = true);
+    $('authTitle').textContent = 'Email sign-in for the global leaderboard switches on shortly.';
+  }
+  if (!hasDb && !BACKEND.web3formsKey) {
+    $('fbForm').querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
+    say('fbOut', 'The feedback form switches on shortly.');
+  }
+  showBoard(boardDiff);
+  if (!hasDb) return;
+  try {
+    await loadScript(SUPABASE_JS);
+    sb = window.supabase.createClient(BACKEND.supabaseUrl, BACKEND.supabaseKey);
+    sb.auth.onAuthStateChange((_ev, session) => { setTimeout(() => onSession(session), 0); });
+    const { data } = await sb.auth.getSession(); await onSession(data.session);
+  } catch (err) { say('authMsg', 'Sign-in is unavailable right now.'); console.error(err); }
+})();
 </script>
 </body>
 </html>

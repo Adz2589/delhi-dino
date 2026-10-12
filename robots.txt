@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /record/
+Disallow: /backend/
+
+Sitemap: https://delhindino.com/sitemap.xml
