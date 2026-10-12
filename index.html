@@ -6,21 +6,59 @@
 <title>Delhi Dino</title>
 <style>
   html, body { margin: 0; background: #f7f7f7; color: #535353; font-family: "Courier New", Courier, monospace; }
-  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  canvas { width: min(100vw - 32px, 1200px); height: auto; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; }
-  p { font-size: 13px; margin: 14px 16px 0; text-align: center; line-height: 1.5; }
+  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 18px 0 40px; box-sizing: border-box; }
+  canvas#c { width: min(100vw - 32px, 1200px); height: auto; image-rendering: pixelated; image-rendering: crisp-edges; cursor: pointer; touch-action: none; }
+  p { font-size: 13px; margin: 12px 16px 0; text-align: center; line-height: 1.5; max-width: 760px; }
   small { opacity: .6; }
   .credit { margin-top: 10px; font-size: 12px; letter-spacing: .08em; opacity: .7; }
+  .picker { max-width: 1200px; margin: 14px 16px 0; text-align: center; }
+  .picker h2 { font-size: 12px; letter-spacing: .14em; margin: 10px 0 6px; }
+  .group { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 8px; }
+  .ch { background: #fff; border: 1px solid #c9c9c9; border-radius: 3px; padding: 6px 6px 4px; width: 84px; cursor: pointer; font: 10px "Courier New", monospace; color: #535353; }
+  .ch:hover { border-color: #535353; }
+  .ch.sel { border: 2px solid #535353; background: #fffbe6; }
+  .ch canvas { width: 48px; height: 56px; image-rendering: pixelated; display: block; margin: 0 auto 4px; }
+  .ch .pw { display: block; color: #c0392b; font-weight: bold; font-size: 8px; margin-top: 2px; }
+  section.faq { max-width: 760px; margin: 28px 16px 0; font-size: 12.5px; line-height: 1.55; border-top: 1px solid #ccc; padding-top: 16px; }
+  section.faq h2 { font-size: 14px; letter-spacing: .1em; margin: 0 0 8px; }
+  section.faq h3 { font-size: 12.5px; margin: 14px 0 3px; }
+  section.faq p { text-align: left; margin: 0; font-size: 12.5px; }
 </style>
 </head>
 <body>
 <canvas id="c" width="600" height="150"></canvas>
 <p>
-  SPACE / ↑ / tap to jump the Delhi Police barricades.<br>
-  Every barricade you clear closes the gap. Get within reach and the dino catches them.<br>
+  SPACE / ↑ / tap to jump the Delhi Police barricades. Every barricade you clear closes the gap.<br>
+  Reach <b>1000 points</b> and your runner catches up with them.<br>
   <small>A spoof of the Chrome offline dino. Satire, obviously.</small>
 </p>
+
+<div class="picker" id="picker"><h2>CHOOSE YOUR RUNNER</h2></div>
+
 <p class="credit">created by adz_25</p>
+
+<section class="faq">
+  <h2>FAQ</h2>
+  <h3>What is this?</h3>
+  <p>A spoof of the game Chrome shows when your internet drops. Instead of cacti there are Delhi Police barricades, and instead of running from nothing, your runner is trying to catch up with two politicians who keep sprinting away. It is political satire in pixel form, made by adz_25.</p>
+  <h3>Is any of this real?</h3>
+  <p>No. Nothing in the game depicts a real event. The barricades, the chase, the speech bubbles, the "GOTCHA" ending and the super-cape are all jokes. The game does not claim that anyone named here did, said or had anything done to them. It is commentary, not reporting.</p>
+  <h3>Who are the runners?</h3>
+  <p>Like chromedino.com lets you swap the dinosaur for other characters, this version lets you run as the dino or as a cast of pixel avatars named after public figures and creators: Neha Bora, Rahul Gandhi, Abhijeet Dipke, Saurav Das, Ashutosh Ranka and Ratna Singh, plus a journalists' bench of KK, Samdish Bhatia, Peek TV, Rana Ayyub and Peeing Human. The sprites are 16-pixel-wide stick figures with a name tag, not likenesses. None of these people made, approved or endorsed the game.</p>
+  <h3>Why does Neha Bora get a cape?</h3>
+  <p>Her runner has the only special power in the game: <b>SANGATHAN</b> (organising). Where every other runner is "detained" the moment they hit a barricade, Neha gets three chances to rally — supporters appear, the group regroups in an orderly line, and the run continues from the barricade. The cape is the joke made visible: the superpower here is getting people organised, not flying.</p>
+  <h3>What do the journalists do?</h3>
+  <p>They run with a camera. There is no separate press mechanic; they are there because any story about barricades in Delhi has journalists in it, and because the player wanted them on the roster. Peeing Human is drawn as an anonymous hoodie on purpose.</p>
+  <h3>Who are the two people running away?</h3>
+  <p>Pixel caricatures of Narendra Modi and Amit Shah, in the tradition of newspaper cartoons. They are never hurt: when you reach 1000 points they topple over and your runner says "GOTCHA." That's the whole catch.</p>
+  <h3>How long is a run?</h3>
+  <p>Points tick up with distance and jump a little for every barricade cleared. The gap meter counts down from 1000. Speed ramps up along the way, so a full run takes a couple of minutes of attention. High scores are saved in your browser.</p>
+  <h3>Can I add a character?</h3>
+  <p>Yes. The code is one HTML file. Every runner is a small palette object in the <code>CHARS</code> list; add one and it appears in the picker.</p>
+  <h3>Why Delhi Police barricades?</h3>
+  <p>Because the yellow "DELHI POLICE" barricade is the city's most recognisable piece of street furniture, and because satire works best with real props and imaginary events. Police characters only ever appear as background figures; nothing in the game lets you attack anyone.</p>
+</section>
+
 <script>
 'use strict';
 const W = 600, H = 150, GROUND = 130, S = 2;
@@ -29,473 +67,313 @@ const ctx = cv.getContext('2d');
 
 // ---------- pixel sprites ----------
 const PAL = {
-  X: '#535353', // dino / outlines
-  w: '#f2f2f2', // white hair & beard
-  G: '#d4d4d4', // grey beard
-  s: '#e3b07a', // skin
-  b: '#222222', // dark hair / eyes
-  c: '#fff6e3', // kurta
-  o: '#f0892b', // saffron jacket
-  n: '#27385f', // navy jacket
-  k: '#3a2a1c', // shoes
-  g: '#1a1a1a', // glasses
-  // background cops (muted so they read as background)
-  p: '#8f8560', // cap
-  S: '#e9cfa8', // face
-  u: '#c8b98e', // khaki uniform
-  l: '#8a6a3a', // lathi
-  K: '#5a4a3a', // boots
+  X: '#535353', w: '#f2f2f2', G: '#d4d4d4', s: '#e3b07a', b: '#222222', c: '#fff6e3', o: '#f0892b', n: '#27385f', k: '#3a2a1c', g: '#1a1a1a',
+  p: '#8f8560', S: '#e9cfa8', u: '#c8b98e', l: '#8a6a3a', K: '#5a4a3a',
 };
-function sprite(rows) {
+function sprite(rows, pal = PAL) {
   const h = rows.length, w = rows[0].length;
   rows.forEach(r => { if (r.length !== w) throw new Error('bad sprite row: ' + r); });
-  const o = document.createElement('canvas');
-  o.width = w * S; o.height = h * S;
+  const o = document.createElement('canvas'); o.width = w * S; o.height = h * S;
   const g = o.getContext('2d');
-  rows.forEach((r, y) => [...r].forEach((ch, x) => {
-    if (ch === '.') return;
-    g.fillStyle = PAL[ch];
-    g.fillRect(x * S, y * S, S, S);
-  }));
+  rows.forEach((r, y) => [...r].forEach((ch, x) => { if (ch === '.') return; g.fillStyle = pal[ch] || PAL[ch]; g.fillRect(x * S, y * S, S, S); }));
   return o;
 }
-
 const DINO_BODY = [
-  '..........XXXXXXXXXX',
-  '.........XX.XXXXXXXX',
-  '.........XXXXXXXXXXX',
-  '.........XXXXXXXXXXX',
-  '.........XXXXXXXXXXX',
-  '.........XXXXXX.....',
-  '.........XXXXXXXXX..',
-  'X.......XXXX........',
-  'X......XXXXXXXX.....',
-  'XX....XXXXXXXXXX....',
-  'XXX..XXXXXXXXXX.X...',
-  'XXXXXXXXXXXXXXX.....',
-  '.XXXXXXXXXXXXXX.....',
-  '..XXXXXXXXXXXX......',
-  '...XXXXXXXXXX.......',
-  '....XXXXXXXX........',
-  '.....XXXXXX.........',
+  '..........XXXXXXXXXX', '.........XX.XXXXXXXX', '.........XXXXXXXXXXX', '.........XXXXXXXXXXX', '.........XXXXXXXXXXX',
+  '.........XXXXXX.....', '.........XXXXXXXXX..', 'X.......XXXX........', 'X......XXXXXXXX.....', 'XX....XXXXXXXXXX....',
+  'XXX..XXXXXXXXXX.X...', 'XXXXXXXXXXXXXXX.....', '.XXXXXXXXXXXXXX.....', '..XXXXXXXXXXXX......', '...XXXXXXXXXX.......',
+  '....XXXXXXXX........', '.....XXXXXX.........',
 ];
 const DINO_LEGS = {
   stand: ['.....XX..XX.........', '.....X...X..........', '.....XX..XX.........'],
   run1:  ['.....XX..XX.........', '.....XX...X.........', '..........XX........'],
   run2:  ['.....XX..XX.........', '.....X...XX.........', '....XX..............'],
 };
-
-// Narendra Modi: white hair swept back, full white beard, cream kurta + saffron Nehru jacket
 const MODI_BODY = [
-  '......wwwwwwww......',
-  '....wwwwwwwwwww.....',
-  '...wwwwwwwwwwwww....',
-  '...wwwwssssssss.....',
-  '...wwwssssssssss....',
-  '...wwwsssbssbsss....',
-  '...wwwssssssssss....',
-  '....wwsssssssss.....',
-  '....wwssssssssw.....',
-  '....wwwsssssww......',
-  '....wwwwsswwww......',
-  '.....wwwwwwww.......',
-  '......wwwwww........',
-  '.......ccccc........',
-  '....oooccccooo......',
-  '...ooooccccoooo.....',
-  '...ooooccccoooos....',
-  '..s.oooccccooo......',
-  '....oooccccooo......',
-  '....oooooooooo......',
-  '....cccccccccc......',
-  '....cccccccccc......',
-  '....cccccccccc......',
-  '....cccccccccc......',
+  '......wwwwwwww......', '....wwwwwwwwwww.....', '...wwwwwwwwwwwww....', '...wwwwssssssss.....', '...wwwssssssssss....',
+  '...wwwsssbssbsss....', '...wwwssssssssss....', '....wwsssssssss.....', '....wwssssssssw.....', '....wwwsssssww......',
+  '....wwwwsswwww......', '.....wwwwwwww.......', '......wwwwww........', '.......ccccc........', '....oooccccooo......',
+  '...ooooccccoooo.....', '...ooooccccoooos....', '..s.oooccccooo......', '....oooccccooo......', '....oooooooooo......',
+  '....cccccccccc......', '....cccccccccc......', '....cccccccccc......', '....cccccccccc......',
 ];
 const MODI_LEGS = {
   stand: ['....cccc..cccc......', '....cccc..cccc......', '....kkkk..kkkk......', '...kkkk....kkkk.....'],
   run1:  ['...cccc....cccc.....', '..cccc......cccc....', '.kkkk........kkkk...', '....................'],
   run2:  ['......cccccccc......', '.......cccccc.......', '.......kkkkkk.......', '....................'],
 };
-
-// Amit Shah: black hair, thick-rimmed glasses, grey beard, stockier, white kurta + navy jacket
 const SHAH_BODY = [
-  '.......bbbbbbb........',
-  '.....bbbbbbbbbb.......',
-  '....bbbbbbbbbbbb......',
-  '....bbbssssssssss.....',
-  '....bbssssssssssss....',
-  '....bbsggggsggggss....',
-  '....bbsgssgsgssgss....',
-  '....bbsggggsggggss....',
-  '....bssssssssssss.....',
-  '....GGsssssssssssG....',
-  '....GGGssssssssGGG....',
-  '....GGGGssssssGGGG....',
-  '.....GGGGGGGGGGGG.....',
-  '......GGGGGGGGGG......',
-  '........cccccc........',
-  '....nnnnccccccnnnn....',
-  '...nnnnnccccccnnnnn...',
-  '...nnnnnccccccnnnnns..',
-  '..s.nnnnccccccnnnnn...',
-  '....nnnnccccccnnnn....',
-  '....nnnnnnnnnnnnnn....',
-  '....cccccccccccccc....',
-  '....cccccccccccccc....',
-  '....cccccccccccccc....',
+  '.......bbbbbbb........', '.....bbbbbbbbbb.......', '....bbbbbbbbbbbb......', '....bbbssssssssss.....', '....bbssssssssssss....',
+  '....bbsggggsggggss....', '....bbsgssgsgssgss....', '....bbsggggsggggss....', '....bssssssssssss.....', '....GGsssssssssssG....',
+  '....GGGssssssssGGG....', '....GGGGssssssGGGG....', '.....GGGGGGGGGGGG.....', '......GGGGGGGGGG......', '........cccccc........',
+  '....nnnnccccccnnnn....', '...nnnnnccccccnnnnn...', '...nnnnnccccccnnnnns..', '..s.nnnnccccccnnnnn...', '....nnnnccccccnnnn....',
+  '....nnnnnnnnnnnnnn....', '....cccccccccccccc....', '....cccccccccccccc....', '....cccccccccccccc....',
 ];
 const SHAH_LEGS = {
   stand: ['....ccccc....ccccc....', '....ccccc....ccccc....', '....kkkkk....kkkkk....', '...kkkkk......kkkkk...'],
   run1:  ['...ccccc......ccccc...', '..ccccc........ccccc..', '.kkkkk..........kkkkk.', '......................'],
   run2:  ['......cccccccccc......', '.......cccccccc.......', '.......kkkkkkkk.......', '......................'],
 };
-const COP = [
-  '....pppp....',
-  '...pppppp...',
-  '....SSSS....',
-  '....SSSS....',
-  '...uuuuuu..l',
-  '..uuuuuuuu.l',
-  '..uuuuuuuu.l',
-  '..u.uuuu.u.l',
-  '....uuuu...l',
-  '....uuuu...l',
-  '....uuuu....',
-  '....uu.uu...',
-  '....uu.uu...',
-  '....uu.uu...',
-  '...KK..KK...',
-];
-const CLOUD = [
-  '.....XXXXX........',
-  '....X.....X.......',
-  '...X.......XXXX...',
-  '..X............X..',
-  '.X..............X.',
-  'XXXXXXXXXXXXXXXXXX',
-];
-const frames = (body, legs) => ({ stand: sprite(body.concat(legs.stand)), run1: sprite(body.concat(legs.run1)), run2: sprite(body.concat(legs.run2)) });
-const SPR = { dino: frames(DINO_BODY, DINO_LEGS), modi: frames(MODI_BODY, MODI_LEGS), shah: frames(SHAH_BODY, SHAH_LEGS), cloud: sprite(CLOUD), cop: sprite(COP) };
-const FUG_H = SPR.modi.stand.height; // 56
+const COP = ['....pppp....', '...pppppp...', '....SSSS....', '....SSSS....', '...uuuuuu..l', '..uuuuuuuu.l', '..uuuuuuuu.l', '..u.uuuu.u.l', '....uuuu...l', '....uuuu...l', '....uuuu....', '....uu.uu...', '....uu.uu...', '....uu.uu...', '...KK..KK...'];
+const CLOUD = ['.....XXXXX........', '....X.....X.......', '...X.......XXXX...', '..X............X..', '.X..............X.', 'XXXXXXXXXXXXXXXXXX'];
 
-const LINES = {
-  modi: ['Mitron... bhaago!', 'Main nahi rukunga!', 'Yeh dino kaun hai?'],
-  shah: ['Chronology samajhiye!', 'Aur barricade lagao!', 'Section 144 lagao!'],
+// generic person template (16 x 23): H hair, F face, E eyes, N collar, T top, B bottom, K shoes, D beard, Q glasses
+const PERSON_BODY = [
+  '.....HHHHHH.....', '....HHHHHHHH....', '....HHHHHHHH....', '....HFFFFFFH....', '....HFFEFFEF....', '....HFFFFFFF....',
+  '.....FFFFFF.....', '......FFFF......', '......NNNN......', '....TTTTTTTT....', '...TTTTTTTTTT...', '...TTTTTTTTTTF..',
+  '..F.TTTTTTTT....', '....TTTTTTTT....', '....TTTTTTTT....', '....TTTTTTTT....', '....BBBBBBBB....', '....BBBBBBBB....', '....BBBBBBBB....',
+];
+const PERSON_LEGS = {
+  stand: ['....BBB..BBB....', '....BBB..BBB....', '....KKK..KKK....', '...KKK....KKK...'],
+  run1:  ['...BBB....BBB...', '..BBB......BBB..', '.KKK........KKK.', '................'],
+  run2:  ['.....BBBBBB.....', '......BBBB......', '......KKKK......', '................'],
 };
+function personRows(c) {
+  const rows = PERSON_BODY.map(r => r);
+  if (c.longHair) { for (let y = 3; y <= 9; y++) rows[y] = 'HH' + rows[y].slice(2, 4) + rows[y].slice(4, 12) + rows[y].slice(12, 14) + 'HH'; for (let y = 3; y <= 9; y++) rows[y] = rows[y].slice(0, 3) + 'H' + rows[y].slice(4, 12) + 'H' + rows[y].slice(13); }
+  if (c.hoodie) { rows[0] = '.....TTTTTT.....'; rows[1] = '....TTTTTTTT....'; rows[2] = '...TTTTTTTTTT...'; rows[3] = '...TTFFFFFFTT...'; rows[4] = '...TTFFEFFETT...'; rows[5] = '...TTFFFFFFTT...'; rows[6] = '....TTFFFFTT....'; rows[7] = '.....TFFFFT.....'; }
+  if (c.glasses) rows[4] = rows[4].replace(/F?EF?F?E/, m => m.replace(/./g, 'Q')).replace('HFFEFFEF', 'HQQQQQQF');
+  if (c.beard) { rows[6] = rows[6].replace('.FFFFFF.', 'DDFFFFDD'); rows[7] = '......DDDD......'; }
+  return rows;
+}
+const frames = (body, legs, pal) => ({ stand: sprite(body.concat(legs.stand), pal), run1: sprite(body.concat(legs.run1), pal), run2: sprite(body.concat(legs.run2), pal) });
+function person(c) { return frames(personRows(c), PERSON_LEGS, { H: c.H, F: c.F || '#e3b07a', T: c.T, B: c.B, K: c.K || '#3a2a1c', E: '#222', N: c.N || c.T, D: c.beard || c.H, Q: '#1a1a1a' }); }
+
+// ---------- the roster ----------
+// Pixel avatars named after public figures and creators. 16-pixel stick figures with a name tag: not likenesses, not endorsements.
+const CHARS = [
+  { id: 'dino', name: 'Dino', group: 'Dino', tag: 'the original' },
+  { id: 'neha', name: 'Neha Bora', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#1d4f9e', B: '#2b2b2b', longHair: true }, cape: true, power: 'SANGATHAN ×3', tag: 'organises, continues from barricades' },
+  { id: 'rahul', name: 'Rahul Gandhi', group: 'Leaders', cfg: { H: '#555', T: '#ffffff', B: '#2b2b2b', beard: '#777' } },
+  { id: 'abhijeet', name: 'Abhijeet Dipke', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#f2c230', B: '#3b5998' } },
+  { id: 'saurav', name: 'Saurav Das', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#222', B: '#444', beard: '#333' } },
+  { id: 'ashutosh', name: 'Ashutosh Ranka', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#2a9d8f', B: '#2b2b2b', glasses: true } },
+  { id: 'ratna', name: 'Ratna Singh', group: 'Leaders', cfg: { H: '#1a1a1a', T: '#8e44ad', B: '#2b2b2b', longHair: true } },
+  { id: 'kk', name: 'KK', group: 'Journalists', cfg: { H: '#888', T: '#7a7a7a', B: '#2b2b2b' }, camera: true },
+  { id: 'samdish', name: 'Samdish Bhatia', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#111', B: '#333', beard: '#222' }, mic: true },
+  { id: 'peek', name: 'Peek TV', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#e74c3c', B: '#2b2b2b' }, mic: true },
+  { id: 'rana', name: 'Rana Ayyub', group: 'Journalists', cfg: { H: '#1a1a1a', T: '#7b1e3a', B: '#2b2b2b', longHair: true }, camera: true },
+  { id: 'peeing', name: 'Peeing Human', group: 'Journalists', cfg: { H: '#f2c230', T: '#f2c230', B: '#2b2b2b', hoodie: true, glasses: true }, mic: true },
+];
+const SPR = { dino: frames(DINO_BODY, DINO_LEGS), modi: frames(MODI_BODY, MODI_LEGS), shah: frames(SHAH_BODY, SHAH_LEGS), cloud: sprite(CLOUD), cop: sprite(COP),
+  supporter1: person({ H: '#222', T: '#c0392b', B: '#3b5998' }), supporter2: person({ H: '#3a2a1c', T: '#2a9d8f', B: '#444' }) };
+for (const c of CHARS) if (c.cfg) SPR[c.id] = person(c.cfg);
+function playerSprites() { return SPR[G.char.id]; }
+function playerH() { return G.char.id === 'dino' ? 40 : 46; }
+
+const LINES = { modi: ['Mitron... bhaago!', 'Main nahi rukunga!', 'Yeh kaun hai?'], shah: ['Chronology samajhiye!', 'Aur barricade lagao!', 'Section 144 lagao!'] };
 
 // ---------- game state ----------
-const G = {};
+const G = { hi: +localStorage.getItem('dd.hi') || 0, char: CHARS.find(c => c.id === localStorage.getItem('dd.char')) || CHARS[0] };
 function reset() {
-  G.state = 'title';          // title | playing | over | won
-  G.t = 0; G.endT = 0;
-  G.speed = 6;
-  G.score = 0;
-  G.hi = G.hi || 0;
-  G.gap = 300;                // px between dino and the fugitives
-  G.dino = { x: 50, y: GROUND - 40, vy: 0, ground: true };
-  G.obs = [];
-  G.clouds = [{ x: 420, y: 30 }, { x: 150, y: 50 }];
-  G.bits = [];
-  G.bgX = 480;
+  G.state = 'title';          // title | playing | rally | over | won
+  G.t = 0; G.endT = 0; G.speed = 6; G.score = 0;
+  G.dino = { x: 50, y: GROUND - playerH(), vy: 0, ground: true, inv: 0 };
+  G.charges = G.char.power ? 3 : 0;
+  G.obs = []; G.clouds = [{ x: 420, y: 30 }, { x: 150, y: 50 }]; G.bits = []; G.bgX = 480;
   G.bg = [{ type: 'cops', x: 230, n: 3 }, { type: 'bus', x: 560 }];
-  G.fug = [
-    { who: 'shah', dx: 0, y: 0, vy: 0, ground: true, angle: 0 },
-    { who: 'modi', dx: 50, y: 0, vy: 0, ground: true, angle: 0 },
-  ];
-  G.bubble = null;
-  G.nextBubble = 120;
-  G.pops = [];
+  G.fug = [{ who: 'shah', dx: 0, y: 0, vy: 0, ground: true, angle: 0 }, { who: 'modi', dx: 50, y: 0, vy: 0, ground: true, angle: 0 }];
+  G.bubble = null; G.nextBubble = 120; G.pops = []; G.rally = null;
   for (let i = 0; i < 12; i++) G.bits.push({ x: Math.random() * W, y: GROUND + 4 + Math.random() * 10, w: 2 + Math.random() * 5 });
 }
 reset();
-
-function jump() {
-  if (G.dino.ground) { G.dino.vy = -9.5; G.dino.ground = false; }
-}
+function gap() { return Math.max(0, 1000 - G.score); }
+function fugX(f) { return 110 + gap() / 1000 * 330 + f.dx; }
+function jump() { if (G.dino.ground && G.state === 'playing') { G.dino.vy = -9.5; G.dino.ground = false; } }
 function start() { G.state = 'playing'; G.t = 0; jump(); }
 function action() {
   if (G.state === 'title') start();
   else if (G.state === 'playing') jump();
+  else if (G.state === 'rally') return;
   else if (G.t - G.endT > 25) { reset(); start(); }
 }
-
 function spawnObstacle() {
-  const r = Math.random();
-  let o;
-  if (r < 0.45) o = { units: 1, tall: false };
-  else if (r < 0.75) o = { units: 1, tall: true };
-  else if (G.speed >= 7) o = { units: 2, tall: false };
-  else o = { units: 1, tall: false };
-  o.w = o.units * 60 + (o.units - 1) * 4;
-  o.h = o.tall ? 44 : 30;
-  o.x = W + 10;
-  o.passed = false;
-  G.obs.push(o);
+  const r = Math.random(); let o;
+  if (r < 0.45) o = { units: 1, tall: false }; else if (r < 0.75) o = { units: 1, tall: true }; else if (G.speed >= 7) o = { units: 2, tall: false }; else o = { units: 1, tall: false };
+  o.w = o.units * 60 + (o.units - 1) * 4; o.h = o.tall ? 44 : 30; o.x = W + 10; o.passed = false; G.obs.push(o);
 }
-function bgWidth(item) { return item.type === 'bus' ? 112 : item.n * 22; }
 function scrollBackground(k) {
   G.bgX -= k * 0.15; if (G.bgX < -90) G.bgX = W + 60;
   for (const it of G.bg) it.x -= k * 0.4;
-  G.bg = G.bg.filter(it => it.x + bgWidth(it) > -10);
+  const bw = it => it.type === 'bus' ? 112 : it.n * 22;
+  G.bg = G.bg.filter(it => it.x + bw(it) > -10);
   const last = G.bg[G.bg.length - 1];
-  if (!last || last.x + bgWidth(last) < W - 120 - Math.random() * 160) {
-    G.bg.push(Math.random() < 0.55 ? { type: 'cops', x: W + 10, n: 2 + Math.floor(Math.random() * 3) } : { type: 'bus', x: W + 10 });
-  }
+  if (!last || last.x + bw(last) < W - 120 - Math.random() * 160) G.bg.push(Math.random() < 0.55 ? { type: 'cops', x: W + 10, n: 2 + Math.floor(Math.random() * 3) } : { type: 'bus', x: W + 10 });
 }
-
-function fugX(f) { return Math.min(G.dino.x + G.gap, 520) + f.dx; }
-
 function step() {
   G.t++;
-  const d = G.dino;
-  // dino physics
-  if (!d.ground) {
-    d.vy += 0.5; d.y += d.vy;
-    if (d.y >= GROUND - 40) { d.y = GROUND - 40; d.vy = 0; d.ground = true; }
-  }
-  // fugitives bob/hop
+  const d = G.dino, ph = playerH();
+  if (!d.ground) { d.vy += 0.5; d.y += d.vy; if (d.y >= GROUND - ph) { d.y = GROUND - ph; d.vy = 0; d.ground = true; } }
   for (const f of G.fug) {
     if (!f.ground) { f.vy += 0.5; f.y += f.vy; if (f.y >= 0) { f.y = 0; f.vy = 0; f.ground = true; } }
-    if (G.state === 'won') { f.angle = Math.min(Math.PI / 2, f.angle + 0.12); }
+    if (G.state === 'won') f.angle = Math.min(Math.PI / 2, f.angle + 0.12);
   }
-  if (G.state !== 'playing') {
-    if (G.state === 'title') scrollBackground(1.2);
-    return;
-  }
-
-  G.speed = Math.min(13, 6 + G.score / 150);
+  if (G.state === 'rally') { if (++G.rally.t > 80) { G.state = 'playing'; d.inv = 90; G.rally = null; } return; }
+  if (G.state !== 'playing') { if (G.state === 'title') scrollBackground(1.2); return; }
+  if (d.inv > 0) d.inv--;
+  G.speed = Math.min(13, 6 + G.score / 220);
   G.score += G.speed * 0.03;
-  G.gap -= 0.02;
-
-  // scroll
   scrollBackground(G.speed);
-  for (const c of G.clouds) c.x -= G.speed * 0.3;
-  G.clouds = G.clouds.filter(c => c.x > -40);
+  for (const c of G.clouds) c.x -= G.speed * 0.3; G.clouds = G.clouds.filter(c => c.x > -40);
   if (G.clouds.length < 3 && Math.random() < 0.01) G.clouds.push({ x: W + 10, y: 20 + Math.random() * 50 });
   for (const b of G.bits) { b.x -= G.speed; if (b.x < -10) { b.x = W + Math.random() * 40; b.y = GROUND + 4 + Math.random() * 10; } }
-
-  // obstacles
-  for (const o of G.obs) o.x -= G.speed;
-  G.obs = G.obs.filter(o => o.x + o.w > -10);
-  const last = G.obs[G.obs.length - 1];
-  const minGap = 230 + G.speed * 12;
+  for (const o of G.obs) o.x -= G.speed; G.obs = G.obs.filter(o => o.x + o.w > -10);
+  const last = G.obs[G.obs.length - 1]; const minGap = 230 + G.speed * 12;
   if (!last || last.x + last.w < W - minGap - Math.random() * 220) { if (G.t > 40) spawnObstacle(); }
-
-  // fugitives hop over barricades (cosmetic)
-  for (const f of G.fug) {
-    const fx = fugX(f);
-    for (const o of G.obs) if (f.ground && o.x > fx + 10 && o.x < fx + 10 + G.speed * 4) { f.vy = -6.5; f.ground = false; }
-  }
-
-  // passing & collision
+  for (const f of G.fug) { const fx = fugX(f); for (const o of G.obs) if (f.ground && o.x > fx + 10 && o.x < fx + 10 + G.speed * 4) { f.vy = -6.5; f.ground = false; } }
   for (const o of G.obs) {
-    if (!o.passed && o.x + o.w < d.x) { o.passed = true; G.gap -= 15; G.pops.push({ x: d.x + 40, y: d.y - 6, t: 0 }); }
-    const hit = d.x + 8 < o.x + o.w - 2 && d.x + 36 > o.x + 2 && d.y + 40 > GROUND - o.h + 2 && d.y + 6 < GROUND;
-    if (hit) { G.state = 'over'; G.endT = G.t; G.bubble = null; G.hi = Math.max(G.hi, Math.floor(G.score)); return; }
+    if (!o.passed && o.x + o.w < d.x) { o.passed = true; G.score += 8; G.pops.push({ x: d.x + 40, y: d.y - 6, t: 0, txt: '+8' }); }
+    const hit = d.x + 8 < o.x + o.w - 2 && d.x + 30 > o.x + 2 && d.y + ph > GROUND - o.h + 2 && d.y + 6 < GROUND;
+    if (hit && d.inv <= 0) {
+      if (G.charges > 0) { G.charges--; G.state = 'rally'; G.rally = { t: 0, x: o.x }; G.obs = G.obs.filter(q => q !== o); G.bubble = null; return; }
+      G.state = 'over'; G.endT = G.t; G.bubble = null; saveHi(); return;
+    }
   }
   G.pops = G.pops.filter(p => ++p.t < 30);
-
-  // speech bubbles
-  if (--G.nextBubble <= 0) {
-    const f = G.fug[Math.random() < 0.5 ? 0 : 1];
-    const lines = LINES[f.who];
-    G.bubble = { f, text: lines[Math.floor(Math.random() * lines.length)], t: 100 };
-    G.nextBubble = 220 + Math.random() * 200;
-  }
+  if (--G.nextBubble <= 0) { const f = G.fug[Math.random() < 0.5 ? 0 : 1]; const ls = LINES[f.who]; G.bubble = { f, text: ls[Math.floor(Math.random() * ls.length)], t: 100 }; G.nextBubble = 220 + Math.random() * 200; }
   if (G.bubble && --G.bubble.t <= 0) G.bubble = null;
-
-  // caught?
-  if (G.gap <= 60) {
-    G.state = 'won'; G.endT = G.t; G.gap = 60; G.bubble = null;
-    G.hi = Math.max(G.hi, Math.floor(G.score));
-    for (const f of G.fug) { f.y = 0; f.ground = true; }
-    G.fug[1].dx = 62; // space them out so they do not overlap once toppled
-  }
+  if (G.score >= 1000) { G.score = 1000; G.state = 'won'; G.endT = G.t; G.bubble = null; saveHi(); for (const f of G.fug) { f.y = 0; f.ground = true; } G.fug[1].dx = 62; }
 }
+function saveHi() { G.hi = Math.max(G.hi, Math.floor(G.score)); localStorage.setItem('dd.hi', G.hi); }
 
 // ---------- rendering ----------
 function pad(n) { return String(Math.floor(n)).padStart(5, '0'); }
-
+function text(t, x, y, size = 9, align = 'center', color = '#535353', bold = false) { ctx.font = (bold ? 'bold ' : '') + size + 'px monospace'; ctx.textAlign = align; ctx.fillStyle = color; ctx.fillText(t, x, y); }
 function drawIndiaGate(x) {
-  ctx.fillStyle = '#e3e3e3';
-  ctx.fillRect(x, GROUND - 56, 64, 56);
-  ctx.fillRect(x - 4, GROUND - 58, 72, 5);
-  ctx.fillRect(x + 22, GROUND - 68, 20, 12);
-  ctx.fillStyle = '#f7f7f7';
-  ctx.fillRect(x + 20, GROUND - 30, 24, 30);
-  ctx.beginPath(); ctx.arc(x + 32, GROUND - 30, 12, Math.PI, 0); ctx.fill();
+  ctx.fillStyle = '#e3e3e3'; ctx.fillRect(x, GROUND - 56, 64, 56); ctx.fillRect(x - 4, GROUND - 58, 72, 5); ctx.fillRect(x + 22, GROUND - 68, 20, 12);
+  ctx.fillStyle = '#f7f7f7'; ctx.fillRect(x + 20, GROUND - 30, 24, 30); ctx.beginPath(); ctx.arc(x + 32, GROUND - 30, 12, Math.PI, 0); ctx.fill();
   ctx.fillRect(x + 4, GROUND - 48, 6, 8); ctx.fillRect(x + 54, GROUND - 48, 6, 8);
 }
-
-// orange Delhi cluster bus, parked in the far lane
 function drawBus(x) {
   const bw = 112, bh = 36, top = GROUND - 4 - bh;
-  ctx.fillStyle = '#ef7d1f'; ctx.fillRect(x, top, bw, bh);
-  ctx.fillStyle = '#d96a12'; ctx.fillRect(x, top + bh - 8, bw, 8);           // skirt
-  ctx.fillStyle = '#cfe6ee';                                                 // windows
-  for (let i = 0; i < 6; i++) ctx.fillRect(x + 6 + i * 17, top + 6, 13, 12);
-  ctx.fillRect(x + bw - 10, top + 6, 8, 20);                                 // front windscreen
-  ctx.fillStyle = '#ffffff'; ctx.font = 'bold 6px monospace'; ctx.textAlign = 'left';
-  ctx.fillText('DTC  DELHI', x + 8, top + bh - 2);
-  ctx.fillStyle = '#2a2a2a';                                                 // wheels
-  ctx.fillRect(x + 14, GROUND - 8, 12, 8); ctx.fillRect(x + bw - 30, GROUND - 8, 12, 8);
-  ctx.fillStyle = '#f0a000'; ctx.fillRect(x + bw - 3, top + bh - 14, 3, 4);  // indicator
+  ctx.fillStyle = '#ef7d1f'; ctx.fillRect(x, top, bw, bh); ctx.fillStyle = '#d96a12'; ctx.fillRect(x, top + bh - 8, bw, 8);
+  ctx.fillStyle = '#cfe6ee'; for (let i = 0; i < 6; i++) ctx.fillRect(x + 6 + i * 17, top + 6, 13, 12); ctx.fillRect(x + bw - 10, top + 6, 8, 20);
+  text('DTC  DELHI', x + 8, top + bh - 2, 6, 'left', '#fff', true);
+  ctx.fillStyle = '#2a2a2a'; ctx.fillRect(x + 14, GROUND - 8, 12, 8); ctx.fillRect(x + bw - 30, GROUND - 8, 12, 8);
+  ctx.fillStyle = '#f0a000'; ctx.fillRect(x + bw - 3, top + bh - 14, 3, 4);
 }
-function drawCops(x, n) {
-  for (let i = 0; i < n; i++) ctx.drawImage(SPR.cop, Math.round(x + i * 22), GROUND - 4 - SPR.cop.height);
-}
-
+function drawCops(x, n) { for (let i = 0; i < n; i++) ctx.drawImage(SPR.cop, Math.round(x + i * 22), GROUND - 4 - SPR.cop.height); }
 function barricadeUnit(x, w, top, tall) {
-  const ph = 18;
-  let py = top;
+  const ph = 18; let py = top;
   if (tall) {
-    ctx.fillStyle = '#ffffff'; ctx.fillRect(x + 6, top, w - 12, 12);
-    ctx.strokeStyle = '#c0392b'; ctx.lineWidth = 1; ctx.strokeRect(x + 6.5, top + .5, w - 13, 11);
-    ctx.fillStyle = '#c0392b'; ctx.font = 'bold 7px monospace'; ctx.textAlign = 'center';
-    ctx.fillText('ROAD CLOSED', x + w / 2, top + 9);
-    ctx.fillStyle = '#535353'; ctx.fillRect(x + w / 2 - 1, top + 12, 2, 2);
-    py = top + 14;
+    ctx.fillStyle = '#fff'; ctx.fillRect(x + 6, top, w - 12, 12); ctx.strokeStyle = '#c0392b'; ctx.lineWidth = 1; ctx.strokeRect(x + 6.5, top + .5, w - 13, 11);
+    text('ROAD CLOSED', x + w / 2, top + 9, 7, 'center', '#c0392b', true); ctx.fillStyle = '#535353'; ctx.fillRect(x + w / 2 - 1, top + 12, 2, 2); py = top + 14;
   }
-  ctx.fillStyle = '#f2c230'; ctx.fillRect(x, py, w, ph);
-  ctx.fillStyle = '#535353'; ctx.fillRect(x, py, w, 3); ctx.fillRect(x, py + ph - 2, w, 2);
-  ctx.fillStyle = '#1d4f9e'; ctx.fillRect(x + 3, py + 5, w - 6, 9);
-  ctx.fillStyle = '#ffffff'; ctx.font = 'bold 7px monospace'; ctx.textAlign = 'center';
-  ctx.fillText('DELHI POLICE', x + w / 2, py + 12);
-  const by = py + ph;
-  ctx.strokeStyle = '#535353'; ctx.lineWidth = 3; ctx.beginPath();
-  for (const lx of [x + 9, x + w - 9]) {
-    ctx.moveTo(lx, by); ctx.lineTo(lx - 6, GROUND);
-    ctx.moveTo(lx, by); ctx.lineTo(lx + 6, GROUND);
-  }
-  ctx.stroke();
-  ctx.fillStyle = '#f2c230'; ctx.fillRect(x + 3, GROUND - 5, w - 6, 2);
+  ctx.fillStyle = '#f2c230'; ctx.fillRect(x, py, w, ph); ctx.fillStyle = '#535353'; ctx.fillRect(x, py, w, 3); ctx.fillRect(x, py + ph - 2, w, 2);
+  ctx.fillStyle = '#1d4f9e'; ctx.fillRect(x + 3, py + 5, w - 6, 9); text('DELHI POLICE', x + w / 2, py + 12, 7, 'center', '#fff', true);
+  const by = py + ph; ctx.strokeStyle = '#535353'; ctx.lineWidth = 3; ctx.beginPath();
+  for (const lx of [x + 9, x + w - 9]) { ctx.moveTo(lx, by); ctx.lineTo(lx - 6, GROUND); ctx.moveTo(lx, by); ctx.lineTo(lx + 6, GROUND); }
+  ctx.stroke(); ctx.fillStyle = '#f2c230'; ctx.fillRect(x + 3, GROUND - 5, w - 6, 2);
 }
-function drawBarricade(o) {
-  const uw = 60, top = GROUND - o.h;
-  for (let i = 0; i < o.units; i++) barricadeUnit(o.x + i * (uw + 4), uw, top, o.tall);
-}
-
-function bubble(text, x, y) {
+function drawBarricade(o) { for (let i = 0; i < o.units; i++) barricadeUnit(o.x + i * 64, 60, GROUND - o.h, o.tall); }
+function bubble(t, x, y) {
   ctx.font = 'bold 7px monospace'; ctx.textAlign = 'left';
-  const tw = ctx.measureText(text).width + 8, th = 12;
-  let bx = Math.min(x - tw / 2, W - tw - 2); bx = Math.max(2, bx);
-  const by = y - th - 6;
-  ctx.fillStyle = '#fff'; ctx.strokeStyle = '#535353'; ctx.lineWidth = 1;
-  ctx.fillRect(bx, by, tw, th); ctx.strokeRect(bx + .5, by + .5, tw - 1, th - 1);
+  const tw = ctx.measureText(t).width + 8, th = 12; let bx = Math.min(x - tw / 2, W - tw - 2); bx = Math.max(2, bx); const by = y - th - 6;
+  ctx.fillStyle = '#fff'; ctx.strokeStyle = '#535353'; ctx.lineWidth = 1; ctx.fillRect(bx, by, tw, th); ctx.strokeRect(bx + .5, by + .5, tw - 1, th - 1);
   ctx.beginPath(); ctx.moveTo(x - 3, by + th); ctx.lineTo(x + 3, by + th); ctx.lineTo(x, by + th + 5); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#535353'; ctx.fillText(text, bx + 4, by + 9);
+  ctx.fillStyle = '#535353'; ctx.fillText(t, bx + 4, by + 9);
 }
-
+function cape(x, y, t) {
+  const flap = Math.sin(t / 5) * 4;
+  ctx.fillStyle = '#c0392b'; ctx.beginPath(); ctx.moveTo(x + 8, y + 18); ctx.lineTo(x + 24, y + 18); ctx.lineTo(x + 2 - flap, y + 42); ctx.lineTo(x - 8 - flap, y + 34); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#f2c230'; ctx.fillRect(x + 8, y + 17, 16, 2);
+}
+function drawRunner(c, x, y, frame, t, named) {
+  const spr = SPR[c.id]; const img = spr[frame] || spr.stand;
+  if (c.cape) cape(x, y, t);
+  ctx.drawImage(img, Math.round(x), Math.round(y));
+  if (c.camera) { ctx.fillStyle = '#222'; ctx.fillRect(x + 24, y + 22, 10, 7); ctx.fillStyle = '#9ad'; ctx.fillRect(x + 27, y + 24, 4, 4); }
+  if (c.mic) { ctx.fillStyle = '#333'; ctx.fillRect(x + 26, y + 20, 3, 10); ctx.fillStyle = '#777'; ctx.fillRect(x + 25, y + 17, 5, 4); }
+  if (c.cape) { ctx.fillStyle = '#f2c230'; ctx.fillRect(x + 11, y + 22, 6, 5); text('N', x + 14, y + 26.5, 5, 'center', '#c0392b', true); }
+  if (named && c.id !== 'dino') { ctx.font = 'bold 6px monospace'; const tw = ctx.measureText(c.name).width + 6; ctx.fillStyle = '#fff'; ctx.fillRect(x + 16 - tw / 2, y - 11, tw, 9); ctx.strokeStyle = '#535353'; ctx.lineWidth = 1; ctx.strokeRect(x + 16.5 - tw / 2, y - 10.5, tw - 1, 8); text(c.name, x + 16, y - 4, 6, 'center', '#535353', true); }
+}
 function render() {
-  ctx.fillStyle = '#f7f7f7'; ctx.fillRect(0, 0, W, H);
-  ctx.imageSmoothingEnabled = false;
-
-  // far background
+  ctx.fillStyle = '#f7f7f7'; ctx.fillRect(0, 0, W, H); ctx.imageSmoothingEnabled = false;
   drawIndiaGate(G.bgX);
   for (const c of G.clouds) ctx.drawImage(SPR.cloud, Math.round(c.x), c.y);
-  // near background: parked buses and cops on duty, softened so the action stays readable
-  ctx.globalAlpha = 0.8;
-  for (const it of G.bg) it.type === 'bus' ? drawBus(Math.round(it.x)) : drawCops(it.x, it.n);
-  ctx.globalAlpha = 1;
-
-  // ground
-  ctx.fillStyle = '#535353'; ctx.fillRect(0, GROUND, W, 1);
-  for (const b of G.bits) ctx.fillRect(Math.round(b.x), Math.round(b.y), b.w, 1);
-
+  ctx.globalAlpha = 0.8; for (const it of G.bg) it.type === 'bus' ? drawBus(Math.round(it.x)) : drawCops(it.x, it.n); ctx.globalAlpha = 1;
+  ctx.fillStyle = '#535353'; ctx.fillRect(0, GROUND, W, 1); for (const b of G.bits) ctx.fillRect(Math.round(b.x), Math.round(b.y), b.w, 1);
   for (const o of G.obs) drawBarricade(o);
-
-  // fugitives
-  const runFrame = (Math.floor(G.t / 6) % 2 ? 'run1' : 'run2');
+  const runFrame = (Math.floor(G.t / 6) % 2 ? 'run1' : 'run2'), playing = G.state === 'playing';
   for (const f of G.fug) {
-    const spr = SPR[f.who];
-    const img = G.state === 'playing' ? (f.ground ? spr[runFrame] : spr.stand) : spr.stand;
+    const spr = SPR[f.who]; const img = playing ? (f.ground ? spr[runFrame] : spr.stand) : spr.stand;
     const x = Math.round(fugX(f)), y = GROUND - img.height + Math.round(f.y);
-    if (f.angle > 0) {
-      // fall backwards: pivot at the feet, end up lying on the ground
-      ctx.save(); ctx.translate(x, GROUND); ctx.rotate(-f.angle);
-      ctx.drawImage(img, 0, -img.height); ctx.restore();
-    } else ctx.drawImage(img, x, y);
+    if (f.angle > 0) { ctx.save(); ctx.translate(x, GROUND); ctx.rotate(-f.angle); ctx.drawImage(img, 0, -img.height); ctx.restore(); } else ctx.drawImage(img, x, y);
   }
-  if (G.bubble) { const f = G.bubble.f; bubble(G.bubble.text, Math.round(fugX(f)) + 20, GROUND - FUG_H - 2 + Math.round(f.y)); }
-
-  // dino
-  const d = G.dino;
-  const dImg = G.state === 'playing' && d.ground ? SPR.dino[runFrame] : SPR.dino.stand;
-  ctx.drawImage(dImg, d.x, Math.round(d.y));
+  if (G.bubble) { const f = G.bubble.f; bubble(G.bubble.text, Math.round(fugX(f)) + 20, GROUND - 58 + Math.round(f.y)); }
+  // rally supporters (Neha's SANGATHAN)
+  if (G.state === 'rally' || (G.rally && G.rally.t < 999)) {}
+  if (G.state === 'rally') {
+    const k = G.rally.t; const bob = Math.sin(k / 4) * 2;
+    [['supporter1', -40], ['supporter2', 110], ['supporter1', 150]].forEach(([w, dx], i) => { const sx = G.dino.x + dx + Math.max(0, (40 - k)) * (dx < 0 ? -1 : 1) * 2; ctx.drawImage(SPR[w].stand, Math.round(sx), GROUND - 46 + bob); ctx.fillStyle = '#fff'; ctx.fillRect(sx + 14, GROUND - 62, 22, 9); ctx.strokeStyle = '#535353'; ctx.strokeRect(sx + 14.5, GROUND - 61.5, 21, 8); text('SANGATHAN', sx + 25, GROUND - 55, 4.5, 'center', '#c0392b', true); });
+  }
+  // player
+  const d = G.dino, c = G.char;
+  if (!(d.inv > 0 && Math.floor(G.t / 4) % 2)) {
+    if (c.id === 'dino') ctx.drawImage(playing && d.ground ? SPR.dino[runFrame] : SPR.dino.stand, d.x, Math.round(d.y));
+    else drawRunner(c, d.x, Math.round(d.y), playing && d.ground ? runFrame : 'stand', G.t, G.state !== 'playing' && G.state !== 'rally');
+  }
   if (G.state === 'won') bubble('GOTCHA.', d.x + 30, d.y - 2);
-  if (G.state === 'over') { ctx.fillStyle = '#f7f7f7'; ctx.fillRect(d.x + 18, d.y + 2, 4, 4); ctx.fillStyle = '#535353'; ctx.fillRect(d.x + 19, d.y + 3, 2, 2); }
-
-  // pops
-  ctx.font = 'bold 8px monospace'; ctx.textAlign = 'left'; ctx.fillStyle = '#535353';
-  for (const p of G.pops) if (p.t % 6 < 4) ctx.fillText('-15m', p.x, p.y - p.t * 0.5);
-
+  if (G.state === 'over' && c.id === 'dino') { ctx.fillStyle = '#f7f7f7'; ctx.fillRect(d.x + 18, d.y + 2, 4, 4); ctx.fillStyle = '#535353'; ctx.fillRect(d.x + 19, d.y + 3, 2, 2); }
+  for (const p of G.pops) if (p.t % 6 < 4) text(p.txt, p.x, p.y - p.t * 0.5, 8, 'left', '#535353', true);
   // HUD
-  ctx.font = '11px monospace'; ctx.fillStyle = '#535353';
-  ctx.textAlign = 'right'; ctx.fillText('HI ' + pad(G.hi) + '  ' + pad(G.score), W - 10, 18);
-  ctx.textAlign = 'left'; ctx.fillText('GAP ' + Math.max(0, Math.round(G.gap - 60)) + 'm', 10, 18);
-
-  // credit
-  ctx.font = '8px monospace'; ctx.textAlign = 'right'; ctx.fillStyle = '#9a9a9a';
-  ctx.fillText('created by adz_25', W - 6, H - 4);
-
+  text('HI ' + pad(G.hi) + '  ' + pad(G.score), W - 10, 18, 11, 'right');
+  text('GAP ' + Math.round(gap()) + 'm', 10, 18, 11, 'left');
+  if (c.power) { text('SANGATHAN', 10, 30, 7, 'left', '#c0392b', true); for (let i = 0; i < 3; i++) { ctx.fillStyle = i < G.charges ? '#c0392b' : '#ddd'; ctx.fillRect(58 + i * 9, 24, 6, 7); } }
+  text('created by adz_25', W - 6, H - 4, 8, 'right', '#9a9a9a');
   // overlays
-  ctx.textAlign = 'center'; ctx.fillStyle = '#535353';
-  if (G.state === 'title') {
-    ctx.font = 'bold 14px monospace'; ctx.fillText('DELHI DINO', W / 2, 52);
-    ctx.font = '9px monospace'; ctx.fillText('they are running. you are hungry. press SPACE / tap', W / 2, 68);
-  } else if (G.state === 'over') {
-    ctx.font = 'bold 14px monospace'; ctx.fillText('D E T A I N E D', W / 2, 52);
-    ctx.font = '9px monospace'; ctx.fillText('Delhi Police got you first. SPACE to try again', W / 2, 68);
-  } else if (G.state === 'won') {
-    ctx.font = 'bold 14px monospace'; ctx.fillText('C A U G H T !', W / 2, 52);
-    ctx.font = '9px monospace'; ctx.fillText('score ' + Math.floor(G.score) + ' · SPACE to run it back', W / 2, 68);
-  }
+  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text('pick another runner below', W / 2, 80, 7, 'center', '#999'); }
+  else if (G.state === 'rally') { text('S A N G A T H A N !', W / 2, 52, 14, 'center', '#c0392b', true); text('Regrouping in an orderly line. Continuing from the barricade. ' + G.charges + ' left.', W / 2, 68, 8, 'center'); }
+  else if (G.state === 'over') { text('D E T A I N E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police got you first at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); }
+  else if (G.state === 'won') { text('C A U G H T !', W / 2, 52, 14, 'center', '#535353', true); text('1000 points · ' + c.name + ' closed the gap · SPACE to run it back', W / 2, 68, 9, 'center'); }
 }
 
 // ---------- loop & input ----------
 let last = 0, acc = 0, paused = false;
-function loop(ts) {
-  if (!paused) {
-    acc += Math.min(ts - last, 100); last = ts;
-    while (acc >= 1000 / 60) { step(); acc -= 1000 / 60; }
-    render();
-  }
-  requestAnimationFrame(loop);
-}
+function loop(ts) { if (!paused) { acc += Math.min(ts - last, 100); last = ts; while (acc >= 1000 / 60) { step(); acc -= 1000 / 60; } render(); } requestAnimationFrame(loop); }
 requestAnimationFrame(ts => { last = ts; loop(ts); });
-
-window.addEventListener('keydown', e => {
-  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); action(); }
-});
+window.addEventListener('keydown', e => { if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); action(); } });
 cv.addEventListener('pointerdown', e => { e.preventDefault(); action(); });
+
+// ---------- character picker ----------
+function setChar(c) { G.char = c; localStorage.setItem('dd.char', c.id); reset(); document.querySelectorAll('.ch').forEach(b => b.classList.toggle('sel', b.dataset.id === c.id)); }
+(function buildPicker() {
+  const root = document.getElementById('picker');
+  for (const grp of ['Dino', 'Leaders', 'Journalists']) {
+    const div = document.createElement('div'); div.className = 'group';
+    for (const c of CHARS.filter(c => c.group === grp)) {
+      const b = document.createElement('button'); b.className = 'ch' + (c.id === G.char.id ? ' sel' : ''); b.dataset.id = c.id; b.title = c.tag || c.name;
+      const th = document.createElement('canvas'); th.width = 48; th.height = 56; const g = th.getContext('2d'); g.imageSmoothingEnabled = false;
+      const img = SPR[c.id].stand; if (c.cape) { g.fillStyle = '#c0392b'; g.beginPath(); g.moveTo(14, 22); g.lineTo(30, 22); g.lineTo(6, 48); g.lineTo(0, 40); g.fill(); }
+      g.drawImage(img, (48 - img.width) / 2 + (c.id === 'dino' ? 0 : 2), 56 - img.height - 2);
+      b.appendChild(th); b.appendChild(document.createTextNode(c.name)); if (c.power) { const s = document.createElement('span'); s.className = 'pw'; s.textContent = c.power; b.appendChild(s); }
+      b.onclick = () => setChar(c); div.appendChild(b);
+    }
+    root.appendChild(div);
+  }
+})();
 
 // ---------- demo capture (used to record the GIF) ----------
 window.__capture = function (opts) {
-  const { every = 3, max = 400, gap = 180 } = opts || {};
-  paused = true;
-  reset(); G.gap = gap; start();
-  const out = [];
+  const { every = 3, max = 420, charId = 'neha', from = 760 } = opts || {};
+  paused = true; const sr = Math.random; let seed = 5; Math.random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); G.score = from;
+  const out = []; let rallied = false;
   for (let n = 0; out.length < max; n++) {
-    if (G.state === 'playing') {
-      const o = G.obs.find(o => o.x + o.w > G.dino.x);
-      if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8) jump();
-    }
+    if (G.state === 'playing') { const o = G.obs.find(o => o.x + o.w > G.dino.x); if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8 && !(G.charges === 3 && !rallied && G.score > from + 60)) jump(); if (G.charges < 3) rallied = true; }
     step(); render();
     if (n % every === 0) out.push(cv.toDataURL('image/png'));
-    if (G.state === 'won' && G.t - G.endT > 80) break;
-    if (G.state === 'over' && G.t - G.endT > 50) break;
+    if (G.state === 'won' && G.t - G.endT > 80) break; if (G.state === 'over' && G.t - G.endT > 50) break;
   }
-  window.__result = { state: G.state, score: Math.floor(G.score), frames: out.length };
-  paused = false; reset();
-  return out;
+  window.__result = { state: G.state, score: Math.floor(G.score), frames: out.length, charges: G.charges };
+  Math.random = sr; paused = false; G.char = CHARS.find(c => c.id === localStorage.getItem('dd.char')) || CHARS[0]; reset(); return out;
+};
+window.__autoplay = function (charId, max = 20000) {
+  paused = true; G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); let n = 0;
+  while (n++ < max && G.state !== 'won' && G.state !== 'over') { if (G.state === 'playing') { const o = G.obs.find(o => o.x + o.w > G.dino.x); if (o && G.dino.ground && o.x - G.dino.x < 30 + G.speed * 8) jump(); } step(); }
+  const r = { charId, state: G.state, score: Math.floor(G.score), steps: n, charges: G.charges }; paused = false; reset(); return r;
 };
 if (new URLSearchParams(location.search).has('capture')) {
-  window.addEventListener('load', async () => {
-    const frames = window.__capture();
-    const r = await fetch('/frames', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(frames) });
-    document.title = 'captured ' + frames.length + ' (' + await r.text() + ')';
-  });
+  window.addEventListener('load', async () => { const fr = window.__capture(); const r = await fetch('/frames', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(fr) }); document.title = 'captured ' + fr.length + ' (' + await r.text() + ')'; });
 }
 </script>
 </body>
