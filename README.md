@@ -6,9 +6,9 @@ Like chromedino.com, you can swap the dinosaur for other runners: Neha Bora (spe
 
 ![demo](delhi-dino.gif)
 
-**Difficulty:** Easy, Medium (the classic tuning) and Hard, each with its own best score.
+**Neha Bora:** each SANGATHAN rally brings supporters with AISF flags who run alongside her for the rest of the run, and her runs play a 14-second theme (`audio/neha-theme.mp3`, cut from 1s–15s of a protest clip) with an on/off toggle.
 
-**Leaderboard & flags:** your country flag shows in the HUD and on the leaderboard. Signed-in players (email + password) post runs to a global board, best run per player per difficulty. Sign-in, the global board and the feedback form need a free Supabase project and a Web3Forms key: see [backend/SETUP.md](backend/SETUP.md). Until then the site shows local bests and the panels say they're switching on soon.
+**Leaderboard & flags:** your country flag shows in the HUD and on the leaderboard. Signed-in players (email + password) post runs to a global board, best run per player. Sign-in, the global board and the feedback form need a free Supabase project and a Web3Forms key: see [backend/SETUP.md](backend/SETUP.md). Until then the site shows local bests and the panels say they're switching on soon.
 
 **SEO:** title/description, canonical, Open Graph + Twitter card (`og-image.png`), JSON-LD (WebSite, VideoGame, FAQPage), `robots.txt`, `sitemap.xml`, favicons.
 

@@ -21,7 +21,7 @@ http.createServer((req, res) => {
   const f = path.join(root, p === '/' ? 'index.html' : p);
   fs.readFile(f, (e, d) => {
     if (e) { res.statusCode = 404; res.end('not found'); return; }
-    const types = { html: 'text/html', svg: 'image/svg+xml', png: 'image/png', gif: 'image/gif', xml: 'application/xml', txt: 'text/plain', js: 'text/javascript', json: 'application/json' };
+    const types = { html: 'text/html', svg: 'image/svg+xml', png: 'image/png', gif: 'image/gif', xml: 'application/xml', txt: 'text/plain', js: 'text/javascript', json: 'application/json', mp3: 'audio/mpeg' };
     res.setHeader('Content-Type', types[f.split('.').pop()] || 'application/octet-stream');
     res.end(d);
   });

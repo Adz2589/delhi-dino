@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Delhi Dino – Free Online Dino Game | T-Rex Runner Spoof</title>
-<meta name="description" content="Play Delhi Dino free online: a satirical spin on the Chrome dino game. Jump Delhi Police barricades, pick a runner, choose Easy, Medium or Hard, reach 1000.">
+<meta name="description" content="Play Delhi Dino free online: a satirical spin on the Chrome dino game. Jump Delhi Police barricades, pick from 12 runners and race to 1000 points.">
 <link rel="canonical" href="https://delhindino.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f7f7f7">
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Delhi Dino">
 <meta property="og:title" content="Delhi Dino – Free Online Dino Game">
-<meta property="og:description" content="Jump Delhi Police barricades, pick your runner, choose Easy, Medium or Hard, and race to 1000. Free, in your browser.">
+<meta property="og:description" content="Jump Delhi Police barricades, pick your runner and race to 1000. Free, in your browser.">
 <meta property="og:url" content="https://delhindino.com/">
 <meta property="og:image" content="https://delhindino.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="Pixel-art dino game: a runner jumps a yellow Delhi Police barricade">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Delhi Dino – Free Online Dino Game">
-<meta name="twitter:description" content="Jump Delhi Police barricades, pick your runner, choose Easy, Medium or Hard, and race to 1000.">
+<meta name="twitter:description" content="Jump Delhi Police barricades, pick your runner and race to 1000.">
 <meta name="twitter:image" content="https://delhindino.com/og-image.png">
 <script type="application/ld+json">
 {
@@ -40,7 +40,7 @@
       "@id": "https://delhindino.com/#game",
       "name": "Delhi Dino",
       "url": "https://delhindino.com/",
-      "description": "A free online dino game in the style of the Chrome T-Rex runner. Jump Delhi Police barricades, pick a runner, choose Easy, Medium or Hard, and reach 1000 points.",
+      "description": "A free online dino game in the style of the Chrome T-Rex runner. Jump Delhi Police barricades, pick a runner and reach 1000 points.",
       "image": "https://delhindino.com/og-image.png",
       "genre": ["Endless runner", "Arcade", "Political satire"],
       "gamePlatform": "Web browser",
@@ -57,8 +57,7 @@
       "mainEntity": [
         { "@type": "Question", "name": "What is Delhi Dino?", "acceptedAnswer": { "@type": "Answer", "text": "Delhi Dino is a free online dino game in the style of the T-Rex runner Chrome shows when your internet drops. Instead of cacti there are Delhi Police barricades, and instead of running from nothing, your runner chases two politicians who keep sprinting away. It is political satire in pixel form, made by adz_25." } },
         { "@type": "Question", "name": "How do I play?", "acceptedAnswer": { "@type": "Answer", "text": "Press Space or the Up arrow, or tap the screen, to jump. Clear the yellow barricades, close the gap, and reach 1000 points to catch up. It runs in any modern browser on desktop or phone, with nothing to install." } },
-        { "@type": "Question", "name": "What are Easy, Medium and Hard?", "acceptedAnswer": { "@type": "Answer", "text": "Easy starts slower, tops out at a lower speed and spaces barricades further apart. Medium is the classic run. Hard starts fast, gets faster, uses more of the tall ROAD CLOSED barricades and, for journalists, sends police in more often. Each difficulty keeps its own best score." } },
-        { "@type": "Question", "name": "How does the leaderboard work?", "acceptedAnswer": { "@type": "Answer", "text": "Sign in with your email to post your runs. Each player's best run per difficulty appears on the global board with their display name and country flag. Runs are ranked by points, and ties at 1000 go to whoever got there faster." } },
+        { "@type": "Question", "name": "How does the leaderboard work?", "acceptedAnswer": { "@type": "Answer", "text": "Sign in with your email to post your runs. Each player's best run appears on the global board with their display name and country flag. Runs are ranked by points, and ties at 1000 go to whoever got there faster." } },
         { "@type": "Question", "name": "Is any of this real?", "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing in the game depicts a real event. The barricades, the chase, the speech bubbles, the GOTCHA ending and the super-cape are all jokes. The game does not claim that anyone named here did, said or had anything done to them. It is commentary, not reporting." } },
         { "@type": "Question", "name": "What do you store about me?", "acceptedAnswer": { "@type": "Answer", "text": "Nothing, unless you sign in or send feedback. Signing in stores your email (for login), a display name, your country and your scores. Feedback stores what you write and is emailed to the site's creator. Your best scores on this device are kept in your browser's local storage." } },
         { "@type": "Question", "name": "Is Delhi Dino affiliated with Google?", "acceptedAnswer": { "@type": "Answer", "text": "No. Delhi Dino is an independent parody of the Chrome offline game. The sprites and code are original." } }
@@ -131,11 +130,8 @@
 <main>
 <canvas id="c" width="600" height="150" role="img" aria-label="Delhi Dino game. Press Space or tap to start and jump."></canvas>
 <noscript><p>Delhi Dino needs JavaScript to run.</p></noscript>
-<div class="bar">
-  <span class="lbl">DIFFICULTY</span>
-  <div class="seg" id="diff" role="group" aria-label="Difficulty">
-    <button type="button" data-d="easy">EASY</button><button type="button" data-d="medium">MEDIUM</button><button type="button" data-d="hard">HARD</button>
-  </div>
+<div class="bar" id="soundBar" hidden>
+  <div class="seg"><button type="button" id="bSound" aria-pressed="true">♪ NEHA'S THEME: ON</button></div>
 </div>
 <p class="status" id="status" aria-live="polite"></p>
 <p>
@@ -148,9 +144,6 @@
 
 <section class="panel" id="board" aria-labelledby="boardH">
   <h2 id="boardH">LEADERBOARD</h2>
-  <div class="seg" id="boardTabs" role="group" aria-label="Leaderboard difficulty">
-    <button type="button" data-d="easy">EASY</button><button type="button" data-d="medium">MEDIUM</button><button type="button" data-d="hard">HARD</button>
-  </div>
   <ol class="board" id="boardList"></ol>
   <p class="note" id="boardNote"></p>
   <div class="row"><label for="country">Your flag</label><select id="country"></select><span id="myBest"></span></div>
@@ -189,16 +182,14 @@
   <p>Delhi Dino is a free online dino game in the style of the T-Rex runner Chrome shows when your internet drops. Instead of cacti there are Delhi Police barricades, and instead of running from nothing, your runner chases two politicians who keep sprinting away. It is political satire in pixel form, made by adz_25.</p>
   <h3>How do I play?</h3>
   <p>Press Space or the Up arrow, or tap the screen, to jump. Clear the yellow barricades, close the gap, and reach 1000 points to catch up. It runs in any modern browser on desktop or phone, with nothing to install.</p>
-  <h3>What are Easy, Medium and Hard?</h3>
-  <p>Easy starts slower, tops out at a lower speed and spaces barricades further apart. Medium is the classic run. Hard starts fast, gets faster, uses more of the tall ROAD CLOSED barricades and, for journalists, sends police in more often. Each difficulty keeps its own best score.</p>
   <h3>How does the leaderboard work?</h3>
-  <p>Sign in with your email to post your runs. Each player's best run per difficulty appears on the global board with their display name and country flag. Runs are ranked by points, and ties at 1000 go to whoever got there faster.</p>
+  <p>Sign in with your email to post your runs. Each player's best run appears on the global board with their display name and country flag. Runs are ranked by points, and ties at 1000 go to whoever got there faster.</p>
   <h3>Is any of this real?</h3>
   <p>No. Nothing in the game depicts a real event. The barricades, the chase, the speech bubbles, the GOTCHA ending and the super-cape are all jokes. The game does not claim that anyone named here did, said or had anything done to them. It is commentary, not reporting.</p>
   <h3>Who are the runners?</h3>
   <p>Like chromedino.com lets you swap the dinosaur for other characters, this version lets you run as the dino or as a cast of pixel avatars named after public figures and creators: Neha Bora, Rahul Gandhi, Abhijeet Dipke, Saurav Das, Ashutosh Ranka and Ratna Singh, plus a journalists' bench of KK, Samdish Bhatia, Peek TV, Rana Ayyub and Peeing Human. The sprites are 16-pixel-wide stick figures with a name tag, not likenesses. None of these people made, approved or endorsed the game.</p>
   <h3>Why does Neha Bora get a cape?</h3>
-  <p>Her runner has a special power: <b>SANGATHAN</b> (organising). Where most runners are "detained" the moment they hit a barricade, Neha gets three chances to rally — supporters appear, the group regroups in an orderly line, and the run continues from the barricade. The cape is the joke made visible: the superpower here is getting people organised, not flying.</p>
+  <p>Her runner has a special power: <b>SANGATHAN</b> (organising). Where most runners are "detained" the moment they hit a barricade, Neha gets three chances to rally. Each time, supporters run in waving AISF flags, join her and keep running alongside her for the rest of the run, which continues from the barricade. Her runs also have their own soundtrack, taken from a protest clip, which you can switch off under the game. The cape is the joke made visible: the superpower here is getting people organised, not flying.</p>
   <h3>What do the journalists do?</h3>
   <p>They run with a camera and a <b>PRESS PASS</b>: barricades don't stop them, because reporting is their job. What does stop them is a Delhi Police constable who runs in every so often with a STOP hand. Jump over him and the "● REC" light stays on; get caught and he seizes a camera with a line like "Permission hai?". Three cameras, then the run ends with REPORTING STOPPED. That is the joke, and the point. Peeing Human is drawn as an anonymous hoodie on purpose.</p>
   <h3>Who are the two people running away?</h3>
@@ -317,20 +308,17 @@ const CHARS = [
 ];
 for (const c of CHARS) if (c.journo) { c.power = 'PRESS PASS'; c.tag = 'walks through barricades; police seize cameras'; }
 const SPR = { dino: frames(DINO_BODY, DINO_LEGS), modi: frames(MODI_BODY, MODI_LEGS), shah: frames(SHAH_BODY, SHAH_LEGS), cloud: sprite(CLOUD), cop: sprite(COP),
-  supporter1: person({ H: '#222', T: '#c0392b', B: '#3b5998' }), supporter2: person({ H: '#3a2a1c', T: '#2a9d8f', B: '#444' }) };
+  supporter1: person({ H: '#222', T: '#c0392b', B: '#3b5998' }), supporter2: person({ H: '#3a2a1c', T: '#2a9d8f', B: '#444' }),
+  supporter3: person({ H: '#1a1a1a', T: '#f2f2f2', B: '#3b5998', longHair: true }), supporter4: person({ H: '#3a2a1c', T: '#c0392b', B: '#2b2b2b', beard: '#3a2a1c' }) };
 for (const c of CHARS) if (c.cfg) SPR[c.id] = person(c.cfg);
 function playerH() { return G.char.id === 'dino' ? 40 : 46; }
 
 const LINES = { modi: ['Mitron... bhaago!', 'Main nahi rukunga!', 'Yeh kaun hai?'], shah: ['Chronology samajhiye!', 'Aur barricade lagao!', 'Section 144 lagao!'] };
 
-// ---------- difficulty ----------
-// medium is the original tuning; gapK widens spacing with speed so every gap stays jumpable
-const DIFFS = {
-  easy:   { label: 'EASY',   v0: 5,   vmax: 10, ramp: 300, gapMin: 290, gapRand: 240, gapK: 12, tallP: .20, doubleSpeed: 99,  cop: [560, 360], copBoost: 1.6 },
-  medium: { label: 'MEDIUM', v0: 6,   vmax: 13, ramp: 220, gapMin: 230, gapRand: 220, gapK: 12, tallP: .30, doubleSpeed: 7,   cop: [380, 320], copBoost: 2.2 },
-  hard:   { label: 'HARD',   v0: 7.5, vmax: 15, ramp: 160, gapMin: 240, gapRand: 180, gapK: 15, tallP: .40, doubleSpeed: 7.5, cop: [260, 220], copBoost: 2.8 },
-};
-const DIFF = () => DIFFS[G.diff];
+// ---------- tuning ----------
+// one difficulty; scores are still stored as 'medium' so the leaderboard keeps working
+const TUNE = { v0: 6, vmax: 13, ramp: 220, gapMin: 230, gapRand: 220, gapK: 12, tallP: .30, doubleSpeed: 7, cop: [380, 320], copBoost: 2.2 };
+const DIFF = () => TUNE;
 
 // ---------- countries & flags ----------
 const CODES = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
@@ -365,7 +353,7 @@ const BEST = loadBest();
 if (!BEST.medium && +store.get('dd.hi', 0) > 0) BEST.medium = { score: +store.get('dd.hi', 0), ms: 0, runner: '' };   // carry over the old single high score
 const G = {
   char: CHARS.find(c => c.id === store.get('dd.char', '')) || CHARS[0],
-  diff: DIFFS[store.get('dd.diff', '')] ? store.get('dd.diff', '') : 'medium',
+  diff: 'medium',
   country: CODES.includes(store.get('dd.country', '')) ? store.get('dd.country', '') : guessCountry(),
   sim: false,
 };
@@ -380,14 +368,14 @@ function reset() {
   G.obs = []; G.clouds = [{ x: 420, y: 30 }, { x: 150, y: 50 }]; G.bits = []; G.bgX = 480;
   G.bg = [{ type: 'cops', x: 230, n: 3 }, { type: 'bus', x: 560 }];
   G.fug = [{ who: 'shah', dx: 0, y: 0, vy: 0, ground: true, angle: 0 }, { who: 'modi', dx: 50, y: 0, vy: 0, ground: true, angle: 0 }];
-  G.bubble = null; G.nextBubble = 120; G.pops = []; G.rally = null;
+  G.bubble = null; G.nextBubble = 120; G.pops = []; G.rally = null; G.crew = [];
   for (let i = 0; i < 12; i++) G.bits.push({ x: Math.random() * W, y: GROUND + 4 + Math.random() * 10, w: 2 + Math.random() * 5 });
 }
 reset();
 function gap() { return Math.max(0, 1000 - G.score); }
 function fugX(f) { return 110 + gap() / 1000 * 330 + f.dx; }
 function jump() { if (G.dino.ground && G.state === 'playing') { G.dino.vy = -9.5; G.dino.ground = false; } }
-function start() { G.state = 'playing'; G.t = 0; jump(); }
+function start() { G.state = 'playing'; G.t = 0; jump(); MUSIC.currentTime = 0; syncMusic(); }
 function action() {
   if (G.state === 'title') start();
   else if (G.state === 'playing') jump();
@@ -407,7 +395,7 @@ function scrollBackground(k) {
   const last = G.bg[G.bg.length - 1];
   if (!last || last.x + bw(last) < W - 120 - Math.random() * 160) G.bg.push(Math.random() < 0.55 ? { type: 'cops', x: W + 10, n: 2 + Math.floor(Math.random() * 3) } : { type: 'bus', x: W + 10 });
 }
-function endRun(state) { G.state = state; G.endT = G.t; G.bubble = null; finishRun(); }
+function endRun(state) { G.state = state; G.endT = G.t; G.bubble = null; finishRun(); syncMusic(); }
 function step() {
   G.t++;
   const d = G.dino, ph = playerH(), D = DIFF();
@@ -416,7 +404,7 @@ function step() {
     if (!f.ground) { f.vy += 0.5; f.y += f.vy; if (f.y >= 0) { f.y = 0; f.vy = 0; f.ground = true; } }
     if (G.state === 'won') f.angle = Math.min(Math.PI / 2, f.angle + 0.12);
   }
-  if (G.state === 'rally') { G.ticks++; if (++G.rally.t > 80) { G.state = 'playing'; d.inv = 90; G.rally = null; } return; }
+  if (G.state === 'rally') { G.ticks++; stepCrew(0); if (++G.rally.t > 80) { G.state = 'playing'; d.inv = 90; G.rally = null; } return; }
   if (G.state !== 'playing') { if (G.state === 'title') scrollBackground(1.2); return; }
   G.ticks++;
   if (d.inv > 0) d.inv--;
@@ -430,6 +418,7 @@ function step() {
   const last = G.obs[G.obs.length - 1]; const minGap = D.gapMin + G.speed * D.gapK;
   if (!last || last.x + last.w < W - minGap - Math.random() * D.gapRand) { if (G.t > 40) spawnObstacle(); }
   for (const f of G.fug) { const fx = fugX(f); for (const o of G.obs) if (f.ground && o.x > fx + 10 && o.x < fx + 10 + G.speed * 4) { f.vy = -6.5; f.ground = false; } }
+  stepCrew(G.speed);
   // journalists: Delhi Police constables run in to stop the reporting
   if (G.char.journo) {
     if (--G.nextCop <= 0 && G.t > 120) { G.cops.push({ x: W + 30, caught: false, t: 0 }); G.nextCop = D.cop[0] + Math.random() * D.cop[1]; }
@@ -449,7 +438,7 @@ function step() {
     if (G.char.journo) continue; // press pass: barricades do not stop the press
     const hit = d.x + 8 < o.x + o.w - 2 && d.x + 30 > o.x + 2 && d.y + ph > GROUND - o.h + 2 && d.y + 6 < GROUND;
     if (hit && d.inv <= 0) {
-      if (G.charges > 0) { G.charges--; G.state = 'rally'; G.rally = { t: 0, x: o.x }; G.obs = G.obs.filter(q => q !== o); G.bubble = null; return; }
+      if (G.charges > 0) { G.charges--; G.state = 'rally'; G.rally = { t: 0, x: o.x }; G.obs = G.obs.filter(q => q !== o); G.bubble = null; joinCrew(G.crew.length ? 1 : 2); return; }
       endRun('over'); return;
     }
   }
@@ -459,6 +448,22 @@ function step() {
   if (G.score >= 1000) { G.score = 1000; for (const f of G.fug) { f.y = 0; f.ground = true; } G.fug[1].dx = 62; endRun('won'); }
 }
 // best per difficulty on this device; signed-in players also post to the global board
+// Neha's crew: AISF supporters who join at each rally and run alongside her (cosmetic, no hitbox)
+const CREW_SLOTS = [-22, 30, -44, 52], CREW_WHO = ['supporter1', 'supporter3', 'supporter2', 'supporter4'];
+function joinCrew(n) {
+  for (let i = 0; i < n && G.crew.length < CREW_SLOTS.length; i++) {
+    const k = G.crew.length;
+    G.crew.push({ who: CREW_WHO[k], slot: CREW_SLOTS[k], x: -40 - i * 26, y: 0, vy: 0, ground: true });
+  }
+}
+function stepCrew(speed) {
+  for (const m of G.crew) {
+    const target = G.dino.x + m.slot;
+    m.x += Math.max(-4, Math.min(4, target - m.x));
+    if (!m.ground) { m.vy += 0.5; m.y += m.vy; if (m.y >= 0) { m.y = 0; m.vy = 0; m.ground = true; } }
+    if (speed) for (const o of G.obs) if (m.ground && o.x > m.x + 8 && o.x < m.x + 8 + speed * 4) { m.vy = -6.5; m.ground = false; }
+  }
+}
 function finishRun() {
   if (G.sim) return;
   const run = { difficulty: G.diff, score: Math.floor(G.score), duration_ms: Math.round(G.ticks * 1000 / 60), runner: G.char.name };
@@ -512,6 +517,19 @@ function cape(x, y, t) {
   ctx.fillStyle = '#c0392b'; ctx.beginPath(); ctx.moveTo(x + 8, y + 18); ctx.lineTo(x + 24, y + 18); ctx.lineTo(x + 2 - flap, y + 42); ctx.lineTo(x - 8 - flap, y + 34); ctx.closePath(); ctx.fill();
   ctx.fillStyle = '#f2c230'; ctx.fillRect(x + 8, y + 17, 16, 2);
 }
+function aisfFlag(px, py, t) {
+  ctx.fillStyle = '#6b5b4b'; ctx.fillRect(px, py, 2, 34);   // pole
+  for (let i = 0; i < 6; i++) {                              // waving white field
+    const fx = px + 2 + i * 3, fy = py + Math.round(Math.sin(t / 5 + i * 0.9) * 1.2);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(fx, fy, 3, 14);
+    ctx.fillStyle = '#c9c9c9'; ctx.fillRect(fx, fy, 3, 1); ctx.fillRect(fx, fy + 13, 3, 1);
+  }
+  const cx = px + 11, cy = py + 4.5;                         // red star
+  ctx.fillStyle = '#c0392b'; ctx.beginPath();
+  for (let i = 0; i < 10; i++) { const r = i % 2 ? 1.4 : 3.4, a = -Math.PI / 2 + i * Math.PI / 5; ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)); }
+  ctx.closePath(); ctx.fill();
+  text('AISF', cx, py + 12.5, 5, 'center', '#c0392b', true);
+}
 function drawRunner(c, x, y, frame, t, named) {
   const spr = SPR[c.id]; const img = spr[frame] || spr.stand;
   if (c.cape) cape(x, y, t);
@@ -542,9 +560,11 @@ function render() {
   }
   if (G.bubble) { const f = G.bubble.f; if (f) bubble(G.bubble.text, Math.round(fugX(f)) + 20, GROUND - 58 + Math.round(f.y)); else { const c = G.cops.find(c => c.caught); if (c) bubble(G.bubble.text, Math.round(c.x) + 12, GROUND - 32); } }
   // rally supporters (Neha's SANGATHAN)
-  if (G.state === 'rally') {
-    const k = G.rally.t; const bob = Math.sin(k / 4) * 2;
-    [['supporter1', -40], ['supporter2', 110], ['supporter1', 150]].forEach(([w, dx]) => { const sx = G.dino.x + dx + Math.max(0, (40 - k)) * (dx < 0 ? -1 : 1) * 2; ctx.drawImage(SPR[w].stand, Math.round(sx), GROUND - 46 + bob); ctx.fillStyle = '#fff'; ctx.fillRect(sx + 14, GROUND - 62, 22, 9); ctx.strokeStyle = '#535353'; ctx.strokeRect(sx + 14.5, GROUND - 61.5, 21, 8); text('SANGATHAN', sx + 25, GROUND - 55, 4.5, 'center', '#c0392b', true); });
+  for (const m of G.crew) {
+    const moving = playing || G.state === 'rally';
+    const x = Math.round(m.x), y = GROUND - 46 - 5 + Math.round(m.y);   // a lane slightly behind Neha
+    ctx.drawImage(SPR[m.who][moving && m.ground ? runFrame : 'stand'], x, y);
+    aisfFlag(x + 26, y - 10, G.t + m.slot);
   }
   // player
   const d = G.dino, c = G.char;
@@ -561,15 +581,14 @@ function render() {
   text('HI ' + pad(G.hi) + '  ' + pad(G.score), W - 10, 18, 11, 'right');
   ctx.font = '11px monospace'; const hw = ctx.measureText('HI ' + pad(G.hi) + '  ' + pad(G.score)).width;
   text(fl, W - 16 - hw, 18, FLAG_OK ? 11 : 8, 'right', '#535353', !FLAG_OK);
-  text(DIFF().label, W - 10, 30, 7, 'right', '#999', true);
   text('GAP ' + Math.round(gap()) + 'm', 10, 18, 11, 'left');
   if (c.power) { const lbl = c.journo ? 'CAMERAS' : 'SANGATHAN'; text(lbl, 10, 30, 7, 'left', '#c0392b', true); const ox = 14 + lbl.length * 4.3; for (let i = 0; i < 3; i++) { ctx.fillStyle = i < G.charges ? '#c0392b' : '#ddd'; ctx.fillRect(ox + i * 9, 24, 6, 7); } }
   text('created by adz_25', W - 6, H - 4, 8, 'right', '#9a9a9a');
   // overlays
-  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  ' + DIFF().label + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text(c.journo ? 'barricades can\'t stop the press — but jump the constables, or they take your camera' : 'pick a difficulty and a runner below', W / 2, 80, 7, 'center', '#999'); }
-  else if (G.state === 'rally') { text('S A N G A T H A N !', W / 2, 52, 14, 'center', '#c0392b', true); text('Regrouping in an orderly line. Continuing from the barricade. ' + G.charges + ' left.', W / 2, 68, 8, 'center'); }
+  if (G.state === 'title') { text('DELHI DINO', W / 2, 52, 14, 'center', '#535353', true); text('runner: ' + c.name + (c.power ? '  ·  power: ' + c.power : '') + '  ·  press SPACE / tap', W / 2, 68, 9, 'center'); text(c.journo ? 'barricades can\'t stop the press — but jump the constables, or they take your camera' : 'pick a runner below', W / 2, 80, 7, 'center', '#999'); }
+  else if (G.state === 'rally') { text('S A N G A T H A N !', W / 2, 52, 14, 'center', '#c0392b', true); text('Supporters join with AISF flags. Continuing from the barricade. ' + G.charges + ' left.', W / 2, 68, 8, 'center'); }
   else if (G.state === 'over') { if (c.journo) { text('R E P O R T I N G   S T O P P E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police seized the last camera at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); } else { text('D E T A I N E D', W / 2, 52, 14, 'center', '#535353', true); text('Delhi Police got you first at ' + Math.floor(G.score) + '. SPACE to try again', W / 2, 68, 9, 'center'); } }
-  else if (G.state === 'won') { text('C A U G H T !', W / 2, 52, 14, 'center', '#535353', true); text('1000 on ' + DIFF().label + ' in ' + secs(G.ticks * 1000 / 60) + ' · ' + c.name + ' closed the gap · SPACE to run it back', W / 2, 68, 9, 'center'); }
+  else if (G.state === 'won') { text('C A U G H T !', W / 2, 52, 14, 'center', '#535353', true); text('1000 in ' + secs(G.ticks * 1000 / 60) + ' · ' + c.name + ' closed the gap · SPACE to run it back', W / 2, 68, 9, 'center'); }
 }
 
 // ---------- loop & input ----------
@@ -583,7 +602,7 @@ window.addEventListener('keydown', e => {
 cv.addEventListener('pointerdown', e => { e.preventDefault(); action(); });
 
 // ---------- character picker ----------
-function setChar(c) { G.char = c; store.set('dd.char', c.id); reset(); document.querySelectorAll('.ch').forEach(b => b.classList.toggle('sel', b.dataset.id === c.id)); }
+function setChar(c) { G.char = c; store.set('dd.char', c.id); reset(); document.querySelectorAll('.ch').forEach(b => b.classList.toggle('sel', b.dataset.id === c.id)); syncMusic(); }
 (function buildPicker() {
   const root = document.getElementById('picker');
   for (const grp of ['Dino', 'Leaders', 'Journalists']) {
@@ -600,14 +619,20 @@ function setChar(c) { G.char = c; store.set('dd.char', c.id); reset(); document.
   }
 })();
 
-// ---------- difficulty picker ----------
-function setDiff(d) {
-  G.diff = d; store.set('dd.diff', d); reset();
-  document.querySelectorAll('#diff button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === d)));
-  if (typeof showBoard === 'function') showBoard(d);
+// ---------- Neha's theme: 1s–15s of the protest clip, looped during her runs only ----------
+const MUSIC = new Audio('audio/neha-theme.mp3'); MUSIC.loop = true; MUSIC.volume = 0.6; MUSIC.preload = 'none';
+let musicOn = store.get('dd.music', '1') === '1';
+// call at state changes only; start() runs inside the key/tap handler, which lets the browser play audio
+function syncMusic() {
+  const want = musicOn && !G.sim && !document.hidden && G.char.id === 'neha' && (G.state === 'playing' || G.state === 'rally');
+  if (want && MUSIC.paused) MUSIC.play().catch(() => {});
+  else if (!want && !MUSIC.paused) MUSIC.pause();
+  document.getElementById('soundBar').hidden = G.char.id !== 'neha';
+  const b = document.getElementById('bSound'); b.setAttribute('aria-pressed', String(musicOn)); b.textContent = "♪ NEHA'S THEME: " + (musicOn ? 'ON' : 'OFF');
 }
-document.querySelectorAll('#diff button').forEach(b => b.onclick = () => setDiff(b.dataset.d));
-document.querySelectorAll('#diff button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === G.diff)));
+document.getElementById('bSound').onclick = () => { musicOn = !musicOn; store.set('dd.music', musicOn ? '1' : '0'); syncMusic(); };
+document.addEventListener('visibilitychange', syncMusic);
+syncMusic();
 
 // ---------- demo capture & autoplay (used to record the GIF and to test tuning) ----------
 function aiJump() {
@@ -631,11 +656,11 @@ window.__capture = function (opts) {
   window.__result = { state: G.state, score: Math.floor(G.score), frames: out.length, charges: G.charges };
   Math.random = sr; paused = false; G.sim = false; G.char = keep; reset(); return out;
 };
-window.__autoplay = function (charId, diff, max = 20000) {
+window.__autoplay = function (charId, max = 20000) {
   paused = true; G.sim = true; const keep = [G.char, G.diff];
-  G.char = CHARS.find(c => c.id === charId) || CHARS[0]; G.diff = diff || G.diff; reset(); start(); let n = 0;
+  G.char = CHARS.find(c => c.id === charId) || CHARS[0]; reset(); start(); let n = 0;
   while (n++ < max && G.state !== 'won' && G.state !== 'over') { aiJump(); step(); }
-  const r = { charId, diff: G.diff, state: G.state, score: Math.floor(G.score), secs: +(G.ticks / 60).toFixed(1), charges: G.charges };
+  const r = { charId, state: G.state, score: Math.floor(G.score), secs: +(G.ticks / 60).toFixed(1), charges: G.charges, crew: G.crew.length };
   paused = false; G.sim = false; [G.char, G.diff] = keep; reset(); return r;
 };
 if (new URLSearchParams(location.search).has('capture')) {
@@ -674,7 +699,7 @@ function loadScript(src) { return new Promise((ok, fail) => { const s = document
 })();
 function showMine() {
   const el = $('myBest'); el.textContent = ''; const b = BEST[boardDiff];
-  el.append('Your best on ' + DIFFS[boardDiff].label + ' (this device): ', flagNode(G.country), ' ' + (b ? b.score + (b.ms ? ' in ' + secs(b.ms) : '') : '—'));
+  el.append('Your best (this device): ', flagNode(G.country), ' ' + (b ? b.score + (b.ms ? ' in ' + secs(b.ms) : '') : '—'));
 }
 
 // ---------- leaderboard ----------
@@ -686,13 +711,12 @@ function row(rank, cc, name, runner, score, ms, mine) {
 }
 async function showBoard(d) {
   boardDiff = d;
-  document.querySelectorAll('#boardTabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === d)));
   showMine();
   const list = $('boardList'); list.textContent = '';
   if (!sb) {
     const b = BEST[d];
     if (b) list.append(row('—', G.country, 'You (this device)', b.runner, b.score, b.ms, true));
-    else { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'No runs on ' + DIFFS[d].label + ' yet. Your best will show here.'; list.append(li); }
+    else { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'No runs yet. Your best will show here.'; list.append(li); }
     say('boardNote', 'The global leaderboard with flags switches on once sign-in is connected.');
     return;
   }
@@ -702,16 +726,14 @@ async function showBoard(d) {
   if (d !== boardDiff) return;
   list.textContent = '';
   if (error) { say('boardNote', 'Leaderboard unavailable right now.'); return; }
-  if (!data.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nobody on the ' + DIFFS[d].label + ' board yet. Be first.'; list.append(li); }
+  if (!data.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nobody on the board yet. Be first.'; list.append(li); }
   data.forEach((r, i) => list.append(row(i + 1, r.country, r.display_name, r.runner, r.score, r.duration_ms, PROFILE && r.display_name === PROFILE.display_name && r.country === PROFILE.country)));
   say('boardNote', ME ? 'Your runs post automatically when they end.' : 'Sign in below to put your runs on the board.');
 }
-document.querySelectorAll('#boardTabs button').forEach(b => b.onclick = () => showBoard(b.dataset.d));
 
 // called by the game when a run ends
 async function onRunEnd(run, better) {
-  const label = DIFFS[run.difficulty].label;
-  say('status', (better ? 'New best on ' + label + ': ' : 'Run on ' + label + ': ') + run.score + (run.score >= 1000 ? ' in ' + secs(run.duration_ms) : ''));
+  say('status', (better ? 'New best: ' : 'Run: ') + run.score + (run.score >= 1000 ? ' in ' + secs(run.duration_ms) : ''));
   if (boardDiff === run.difficulty) showMine();
   if (!sb || run.score < 10) return;
   if (!ME) { say('status', $('status').textContent + ' · sign in below to post it with your flag'); return; }
